@@ -61,3 +61,5 @@ Projet réalisé en équipe de **10 personnes** dans le cadre d'un Hackathon org
 ---
 
 *Formation Développeur Web — EFP Bruxelles (2025–2027)*
+ Figma:
+ https://www.figma.com/design/8qa2yrssB7VyQRQ0dHbp0D/Team-UI---Sio--Sha--Mag--%F0%9F%94%B4?node-id=0-1&p=f&t=nf100VyGW6dIsmf7-0
