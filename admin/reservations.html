@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gérer les réservations – Administration BE CHILL</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+    <header>
+        <p>BE CHILL – Administration</p>
+        <p>Connecté en tant que : Admin</p>
+    </header>
+
+    <nav aria-label="Navigation administration">
+        <ul>
+            <li><a href="dashboard.html">Tableau de bord</a></li>
+            <li><a href="soins.html">Gérer les soins</a></li>
+            <li><a href="reservations.html" aria-current="page">Gérer les réservations</a></li>
+            <li><a href="messages.html">Messages reçus</a></li>
+            <li><a href="login.html">Déconnexion</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <h1>Gestion des réservations</h1>
+        <p>Consultez et gérez les réservations reçues via le site.</p>
+
+        <section aria-labelledby="filtres-reservations">
+            <h2 id="filtres-reservations">Filtrer les réservations</h2>
+            <form action="#" method="get">
+                <fieldset>
+                    <legend>Critères de recherche</legend>
+
+                    <p>
+                        <label for="recherche-client">Rechercher par nom de client</label><br>
+                        <input type="search" id="recherche-client" name="recherche" placeholder="Ex : Dupont">
+                    </p>
+
+                    <p>
+                        <label for="filtre-soin">Soin</label><br>
+                        <select id="filtre-soin" name="soin">
+                            <option value="">Tous les soins</option>
+                            <option value="relaxant">Massage relaxant</option>
+                            <option value="suedois">Massage suédois</option>
+                            <option value="pierres">Massage aux pierres chaudes</option>
+                            <option value="sportif">Massage sportif</option>
+                            <option value="dos-nuque">Massage dos et nuque</option>
+                            <option value="reflexologie">Réflexologie plantaire</option>
+                        </select>
+                    </p>
+
+                    <p>
+                        <label for="filtre-statut">Statut</label><br>
+                        <select id="filtre-statut" name="statut">
+                            <option value="">Tous les statuts</option>
+                            <option value="attente">En attente</option>
+                            <option value="confirmee">Confirmée</option>
+                            <option value="annulee">Annulée</option>
+                        </select>
+                    </p>
+
+                    <p>
+                        <label for="filtre-date-debut">Date de début</label><br>
+                        <input type="date" id="filtre-date-debut" name="date-debut">
+                    </p>
+
+                    <p>
+                        <label for="filtre-date-fin">Date de fin</label><br>
+                        <input type="date" id="filtre-date-fin" name="date-fin">
+                    </p>
+
+                    <p>
+                        <button type="submit">Filtrer</button>
+                        <button type="reset">Réinitialiser les filtres</button>
+                    </p>
+                </fieldset>
+            </form>
+        </section>
+
+        <section aria-labelledby="liste-reservations">
+            <h2 id="liste-reservations">Liste des réservations</h2>
+            <table>
+                <caption>Réservations reçues</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Date</th>
+                        <th scope="col">Heure</th>
+                        <th scope="col">Client</th>
+                        <th scope="col">Courriel</th>
+                        <th scope="col">Soin</th>
+                        <th scope="col">Statut</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>07/04/2026</td>
+                        <td>10h00</td>
+                        <td>Marie Dupont</td>
+                        <td>marie.dupont@email.be</td>
+                        <td>Massage relaxant</td>
+                        <td>En attente</td>
+                        <td>
+                            <a href="#">Confirmer cette réservation</a> |
+                            <a href="#">Annuler cette réservation</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>07/04/2026</td>
+                        <td>14h00</td>
+                        <td>Jean Lambert</td>
+                        <td>j.lambert@email.be</td>
+                        <td>Massage sportif</td>
+                        <td>Confirmée</td>
+                        <td>
+                            <a href="#">Annuler cette réservation</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>08/04/2026</td>
+                        <td>11h00</td>
+                        <td>Fatima El Amrani</td>
+                        <td>f.elamrani@email.be</td>
+                        <td>Réflexologie plantaire</td>
+                        <td>En attente</td>
+                        <td>
+                            <a href="#">Confirmer cette réservation</a> |
+                            <a href="#">Annuler cette réservation</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>08/04/2026</td>
+                        <td>15h00</td>
+                        <td>Lucas Bernard</td>
+                        <td>lucas.b@email.be</td>
+                        <td>Massage suédois</td>
+                        <td>Confirmée</td>
+                        <td>
+                            <a href="#">Annuler cette réservation</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>09/04/2026</td>
+                        <td>09h00</td>
+                        <td>Sarah Janssen</td>
+                        <td>sarah.j@email.be</td>
+                        <td>Massage aux pierres chaudes</td>
+                        <td>Annulée</td>
+                        <td>
+                            <a href="#">Supprimer cette réservation</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <footer>
+        <p><small>&copy; 2026 BE CHILL – Espace d'administration</small></p>
+    </footer>
+
+</body>
+</html>

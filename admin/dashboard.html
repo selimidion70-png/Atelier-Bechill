@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau de bord – Administration BE CHILL</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+    <header>
+        <p>BE CHILL – Administration</p>
+        <p>Connecté en tant que : Admin</p>
+    </header>
+
+    <nav aria-label="Navigation administration">
+        <ul>
+            <li><a href="dashboard.html" aria-current="page">Tableau de bord</a></li>
+            <li><a href="soins.html">Gérer les soins</a></li>
+            <li><a href="reservations.html">Gérer les réservations</a></li>
+            <li><a href="messages.html">Messages reçus</a></li>
+            <li><a href="login.html">Déconnexion</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <h1>Tableau de bord</h1>
+        <p>Bienvenue dans l'espace d'administration de BE CHILL. Consultez les indicateurs ci-dessous et accédez aux différentes sections de gestion.</p>
+
+        <section aria-labelledby="resume">
+            <h2 id="resume">Résumé</h2>
+            <table>
+                <caption>Indicateurs du tableau de bord</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Indicateur</th>
+                        <th scope="col">Valeur</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Soins actifs</td>
+                        <td>6</td>
+                    </tr>
+                    <tr>
+                        <td>Réservations cette semaine</td>
+                        <td>12</td>
+                    </tr>
+                    <tr>
+                        <td>Messages non lus</td>
+                        <td>3</td>
+                    </tr>
+                    <tr>
+                        <td>Clients inscrits à la newsletter</td>
+                        <td>48</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section aria-labelledby="acces-rapide">
+            <h2 id="acces-rapide">Accès rapide</h2>
+            <ul>
+                <li><a href="soins-ajouter.html">Ajouter un nouveau soin</a></li>
+                <li><a href="reservations.html">Consulter les réservations</a></li>
+                <li><a href="messages.html">Lire les messages</a></li>
+                <li><a href="../index.html">Voir le site public</a></li>
+            </ul>
+        </section>
+
+        <section aria-labelledby="reservations-recentes">
+            <h2 id="reservations-recentes">Dernières réservations</h2>
+            <table>
+                <caption>Les 5 dernières réservations reçues</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Date</th>
+                        <th scope="col">Client</th>
+                        <th scope="col">Soin</th>
+                        <th scope="col">Statut</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>05/04/2026</td>
+                        <td>Marie Dupont</td>
+                        <td>Massage relaxant</td>
+                        <td>En attente</td>
+                        <td><a href="reservations.html">Voir le détail</a></td>
+                    </tr>
+                    <tr>
+                        <td>04/04/2026</td>
+                        <td>Jean Lambert</td>
+                        <td>Massage sportif</td>
+                        <td>Confirmée</td>
+                        <td><a href="reservations.html">Voir le détail</a></td>
+                    </tr>
+                    <tr>
+                        <td>04/04/2026</td>
+                        <td>Fatima El Amrani</td>
+                        <td>Réflexologie plantaire</td>
+                        <td>En attente</td>
+                        <td><a href="reservations.html">Voir le détail</a></td>
+                    </tr>
+                    <tr>
+                        <td>03/04/2026</td>
+                        <td>Lucas Bernard</td>
+                        <td>Massage suédois</td>
+                        <td>Confirmée</td>
+                        <td><a href="reservations.html">Voir le détail</a></td>
+                    </tr>
+                    <tr>
+                        <td>03/04/2026</td>
+                        <td>Sarah Janssen</td>
+                        <td>Massage aux pierres chaudes</td>
+                        <td>Annulée</td>
+                        <td><a href="reservations.html">Voir le détail</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <footer>
+        <p><small>&copy; 2026 BE CHILL – Espace d'administration</small></p>
+    </footer>
+
+</body>
+</html>

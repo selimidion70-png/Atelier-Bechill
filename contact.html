@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact – BE CHILL</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <p>BE CHILL</p>
+        <p>Salon de massage et bien-être à Bruxelles</p>
+    </header>
+
+    <nav aria-label="Navigation principale">
+        <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="soins.html">Nos soins</a></li>
+            <li><a href="tarifs.html">Tarifs</a></li>
+            <li><a href="reservation.html">Réservation</a></li>
+            <li><a href="apropos.html">À propos</a></li>
+            <li><a href="contact.html" aria-current="page">Contact</a></li>
+        </ul>
+        <form action="soins.html" method="get" role="search" aria-label="Recherche de soins">
+            <label for="recherche-nav">Rechercher un soin</label>
+            <input type="search" id="recherche-nav" name="recherche" placeholder="Ex : relaxant, sportif…">
+            <button type="submit">Rechercher</button>
+        </form>
+    </nav>
+
+    <main>
+        <h1>Contactez-nous</h1>
+        <p>Une question, une remarque ou une demande particulière ? N'hésitez pas à nous écrire via le formulaire ci-dessous ou à nous contacter directement.</p>
+
+        <section aria-labelledby="formulaire-contact">
+            <h2 id="formulaire-contact">Formulaire de contact</h2>
+
+            <form action="#" method="post">
+                <fieldset>
+                    <legend>Vos coordonnées</legend>
+
+                    <p>
+                        <label for="nom">Nom</label><br>
+                        <input type="text" id="nom" name="nom" autocomplete="family-name" required>
+                    </p>
+
+                    <p>
+                        <label for="prenom">Prénom</label><br>
+                        <input type="text" id="prenom" name="prenom" autocomplete="given-name" required>
+                    </p>
+
+                    <p>
+                        <label for="email">Adresse courriel</label><br>
+                        <input type="email" id="email" name="email" autocomplete="email" required>
+                    </p>
+
+                    <p>
+                        <label for="telephone">Numéro de téléphone</label><br>
+                        <input type="tel" id="telephone" name="telephone" autocomplete="tel">
+                    </p>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Votre message</legend>
+
+                    <p>
+                        <label for="sujet">Sujet</label><br>
+                        <select id="sujet" name="sujet" required>
+                            <option value="">-- Choisissez un sujet --</option>
+                            <option value="information">Demande d'information</option>
+                            <option value="reservation">Question sur une réservation</option>
+                            <option value="reclamation">Réclamation</option>
+                            <option value="partenariat">Proposition de partenariat</option>
+                            <option value="autre">Autre</option>
+                        </select>
+                    </p>
+
+                    <p>
+                        <label for="message">Message</label><br>
+                        <textarea id="message" name="message" rows="6" cols="50" required></textarea>
+                    </p>
+
+                    <p>
+                        <input type="checkbox" id="newsletter" name="newsletter" value="oui">
+                        <label for="newsletter">Je souhaite recevoir la newsletter de BE CHILL</label>
+                    </p>
+                </fieldset>
+
+                <p>
+                    <button type="submit">Envoyer le message</button>
+                    <button type="reset">Effacer le formulaire</button>
+                </p>
+            </form>
+        </section>
+
+        <section aria-labelledby="nos-coordonnees">
+            <h2 id="nos-coordonnees">Nos coordonnées</h2>
+            <address>
+                BE CHILL – Salon de massage<br>
+                Rue de la Détente 10<br>
+                1000 Bruxelles
+            </address>
+
+            <h3>Par téléphone</h3>
+            <p><a href="tel:+32470000000">+32 470 00 00 00</a></p>
+            <p>Disponible du lundi au vendredi, de 9h00 à 19h00.</p>
+
+            <h3>Par courriel</h3>
+            <p><a href="mailto:info@bechill.be">info@bechill.be</a></p>
+            <p>Nous répondons dans un délai de 24 heures ouvrables.</p>
+        </section>
+
+        <section aria-labelledby="horaires-contact">
+            <h2 id="horaires-contact">Horaires d'ouverture</h2>
+            <table>
+                <caption>Horaires d'ouverture de BE CHILL</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Jour</th>
+                        <th scope="col">Horaire</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Lundi – Vendredi</td>
+                        <td>9h00 – 19h00</td>
+                    </tr>
+                    <tr>
+                        <td>Samedi</td>
+                        <td>10h00 – 17h00</td>
+                    </tr>
+                    <tr>
+                        <td>Dimanche</td>
+                        <td>Fermé</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section aria-labelledby="acces">
+            <h2 id="acces">Comment nous trouver</h2>
+            <h3>En transports en commun</h3>
+            <ul>
+                <li>Métro : arrêt De Brouckère (lignes 1 et 5)</li>
+                <li>Tram : arrêt Bourse (lignes 3 et 4)</li>
+                <li>Bus : arrêt Anspach (lignes 46 et 86)</li>
+            </ul>
+
+            <h3>En voiture</h3>
+            <p>Parking public disponible à 200 mètres (Parking Monnaie).</p>
+        </section>
+    </main>
+
+    <footer>
+        <section aria-labelledby="coordonnees-footer-contact">
+            <h2 id="coordonnees-footer-contact">Coordonnées</h2>
+            <address>
+                BE CHILL – Salon de massage<br>
+                Rue de la Détente 10<br>
+                1000 Bruxelles<br>
+                Téléphone : <a href="tel:+32470000000">+32 470 00 00 00</a><br>
+                Courriel : <a href="mailto:info@bechill.be">info@bechill.be</a>
+            </address>
+        </section>
+        <nav aria-label="Navigation secondaire">
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="soins.html">Nos soins</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <p><small>&copy; 2026 BE CHILL – Tous droits réservés</small></p>
+    </footer>
+
+</body>
+</html>

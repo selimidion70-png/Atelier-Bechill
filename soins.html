@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nos soins – BE CHILL</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <p>BE CHILL</p>
+        <p>Salon de massage et bien-être à Bruxelles</p>
+    </header>
+
+    <nav aria-label="Navigation principale">
+        <ul>
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="soins.html" aria-current="page">Nos soins</a></li>
+            <li><a href="tarifs.html">Tarifs</a></li>
+            <li><a href="reservation.html">Réservation</a></li>
+            <li><a href="apropos.html">À propos</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <form action="soins.html" method="get" role="search" aria-label="Recherche de soins">
+            <label for="recherche-nav">Rechercher un soin</label>
+            <input type="search" id="recherche-nav" name="recherche" placeholder="Ex : relaxant, sportif…">
+            <button type="submit">Rechercher</button>
+        </form>
+    </nav>
+
+    <main>
+        <h1>Nos soins</h1>
+        <p>Découvrez notre gamme de massages et soins bien-être. Chaque soin est réalisé par un thérapeute certifié, dans un cadre calme et apaisant.</p>
+
+        <section aria-labelledby="filtres-catalogue">
+            <h2 id="filtres-catalogue">Rechercher un soin</h2>
+            <form action="#" method="get">
+                <fieldset>
+                    <legend>Filtrer le catalogue</legend>
+
+                    <p>
+                        <label for="recherche-soin">Rechercher par mot-clé</label><br>
+                        <input type="search" id="recherche-soin" name="recherche" placeholder="Ex : relaxant, sportif, pierres">
+                    </p>
+
+                    <p>
+                        <label for="filtre-categorie">Catégorie</label><br>
+                        <select id="filtre-categorie" name="categorie">
+                            <option value="">Toutes les catégories</option>
+                            <option value="classique">Massages classiques</option>
+                            <option value="specifique">Massages spécifiques</option>
+                        </select>
+                    </p>
+
+                    <p>
+                        <label for="filtre-duree">Durée maximale</label><br>
+                        <select id="filtre-duree" name="duree">
+                            <option value="">Toutes les durées</option>
+                            <option value="30">30 minutes</option>
+                            <option value="45">45 minutes</option>
+                            <option value="60">60 minutes</option>
+                            <option value="90">90 minutes</option>
+                        </select>
+                    </p>
+
+                    <p>
+                        <button type="submit">Rechercher</button>
+                        <button type="reset">Réinitialiser les filtres</button>
+                    </p>
+                </fieldset>
+            </form>
+        </section>
+
+        <section aria-labelledby="massages-classiques">
+            <h2 id="massages-classiques">Massages classiques</h2>
+
+            <article>
+                <h3>Massage relaxant</h3>
+                <p><strong>Durée :</strong> 60 minutes</p>
+                <p>Un massage doux à l'huile essentielle qui vise à détendre l'ensemble du corps. Idéal pour évacuer le stress et retrouver un état de calme profond.</p>
+                <ul>
+                    <li>Mouvements lents et enveloppants</li>
+                    <li>Huiles essentielles biologiques</li>
+                    <li>Ambiance sonore apaisante</li>
+                </ul>
+                <p><a href="soin-detail.html">Voir le détail du massage relaxant</a></p>
+                <p><a href="reservation.html">Réserver un massage relaxant</a></p>
+            </article>
+
+            <article>
+                <h3>Massage suédois</h3>
+                <p><strong>Durée :</strong> 60 ou 90 minutes</p>
+                <p>Un massage plus tonique qui alterne pressions profondes et effleurages. Il améliore la circulation sanguine et soulage les tensions musculaires.</p>
+                <ul>
+                    <li>Pétrissages et frictions</li>
+                    <li>Travail en profondeur des muscles</li>
+                    <li>Adapté à tous les niveaux de tolérance</li>
+                </ul>
+                <p><a href="reservation.html">Réserver un massage suédois</a></p>
+            </article>
+
+            <article>
+                <h3>Massage aux pierres chaudes</h3>
+                <p><strong>Durée :</strong> 75 minutes</p>
+                <p>Des pierres volcaniques chauffées sont placées sur les points de tension du corps. La chaleur pénètre les muscles et procure une relaxation profonde.</p>
+                <ul>
+                    <li>Pierres de basalte naturelles</li>
+                    <li>Chaleur thérapeutique</li>
+                    <li>Relâchement musculaire profond</li>
+                </ul>
+                <p><a href="reservation.html">Réserver un massage aux pierres chaudes</a></p>
+            </article>
+        </section>
+
+        <section aria-labelledby="massages-specifiques">
+            <h2 id="massages-specifiques">Massages spécifiques</h2>
+
+            <article>
+                <h3>Massage sportif</h3>
+                <p><strong>Durée :</strong> 60 ou 90 minutes</p>
+                <p>Conçu pour les sportifs, ce massage cible les zones sollicitées lors de l'effort. Il favorise la récupération et prévient les blessures.</p>
+                <ul>
+                    <li>Travail ciblé sur les zones de tension</li>
+                    <li>Étirements assistés</li>
+                    <li>Adapté avant ou après l'effort</li>
+                </ul>
+                <p><a href="reservation.html">Réserver un massage sportif</a></p>
+            </article>
+
+            <article>
+                <h3>Massage dos et nuque</h3>
+                <p><strong>Durée :</strong> 30 minutes</p>
+                <p>Un soin ciblé sur le haut du corps pour les personnes souffrant de tensions liées au travail de bureau ou au stress quotidien.</p>
+                <ul>
+                    <li>Focus sur les épaules, nuque et dos</li>
+                    <li>Soulagement rapide des tensions</li>
+                    <li>Format court, idéal en pause déjeuner</li>
+                </ul>
+                <p><a href="reservation.html">Réserver un massage dos et nuque</a></p>
+            </article>
+
+            <article>
+                <h3>Réflexologie plantaire</h3>
+                <p><strong>Durée :</strong> 45 minutes</p>
+                <p>Un soin basé sur la stimulation des zones réflexes du pied. Il favorise l'équilibre général du corps et procure une détente profonde.</p>
+                <ul>
+                    <li>Pressions ciblées sur les zones réflexes</li>
+                    <li>Amélioration de la circulation</li>
+                    <li>Bien-être général</li>
+                </ul>
+                <p><a href="reservation.html">Réserver une réflexologie plantaire</a></p>
+            </article>
+        </section>
+
+        <aside aria-labelledby="bon-a-savoir">
+            <h2 id="bon-a-savoir">Bon à savoir</h2>
+            <ul>
+                <li>Arrivez 10 minutes avant votre rendez-vous pour vous installer.</li>
+                <li>Signalez toute allergie ou condition médicale à votre thérapeute.</li>
+                <li>Des serviettes et peignoirs sont fournis sur place.</li>
+                <li>Annulation gratuite jusqu'à 24h avant le rendez-vous.</li>
+            </ul>
+        </aside>
+    </main>
+
+    <footer>
+        <section aria-labelledby="coordonnees-soins">
+            <h2 id="coordonnees-soins">Coordonnées</h2>
+            <address>
+                BE CHILL – Salon de massage<br>
+                Rue de la Détente 10<br>
+                1000 Bruxelles<br>
+                Téléphone : <a href="tel:+32470000000">+32 470 00 00 00</a><br>
+                Courriel : <a href="mailto:info@bechill.be">info@bechill.be</a>
+            </address>
+        </section>
+        <nav aria-label="Navigation secondaire">
+            <ul>
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="soins.html">Nos soins</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <p><small>&copy; 2026 BE CHILL – Tous droits réservés</small></p>
+    </footer>
+
+</body>
+</html>

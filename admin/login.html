@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion – Administration BE CHILL</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+    <header>
+        <p>BE CHILL – Administration</p>
+    </header>
+
+    <main>
+        <h1>Connexion à l'espace d'administration</h1>
+        <p>Veuillez saisir vos identifiants pour accéder au tableau de bord.</p>
+
+        <form action="#" method="post">
+            <fieldset>
+                <legend>Identifiants de connexion</legend>
+
+                <p>
+                    <label for="identifiant">Identifiant</label><br>
+                    <input type="text" id="identifiant" name="identifiant" autocomplete="username" required>
+                </p>
+
+                <p>
+                    <label for="mot-de-passe">Mot de passe</label><br>
+                    <input type="password" id="mot-de-passe" name="mot-de-passe" autocomplete="current-password" required>
+                </p>
+
+                <p>
+                    <input type="checkbox" id="se-souvenir" name="se-souvenir" value="oui">
+                    <label for="se-souvenir">Se souvenir de moi</label>
+                </p>
+            </fieldset>
+
+            <p>
+                <button type="submit">Se connecter</button>
+            </p>
+        </form>
+
+        <p><a href="../index.html">Retour au site public</a></p>
+    </main>
+
+    <footer>
+        <p><small>&copy; 2026 BE CHILL – Espace d'administration</small></p>
+    </footer>
+
+</body>
+</html>
