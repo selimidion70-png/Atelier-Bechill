@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messages reçus – Administration BE CHILL</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+    <header>
+        <p>BE CHILL – Administration</p>
+        <p>Connecté en tant que : Admin</p>
+    </header>
+
+    <nav aria-label="Navigation administration">
+        <ul>
+            <li><a href="dashboard.html">Tableau de bord</a></li>
+            <li><a href="soins.html">Gérer les soins</a></li>
+            <li><a href="reservations.html">Gérer les réservations</a></li>
+            <li><a href="messages.html" aria-current="page">Messages reçus</a></li>
+            <li><a href="login.html">Déconnexion</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <h1>Messages reçus</h1>
+        <p>Consultez les messages envoyés via le formulaire de contact du site.</p>
+
+        <section aria-labelledby="filtres-messages">
+            <h2 id="filtres-messages">Filtrer les messages</h2>
+            <form action="#" method="get">
+                <fieldset>
+                    <legend>Critères de recherche</legend>
+
+                    <p>
+                        <label for="recherche-message">Rechercher par nom ou sujet</label><br>
+                        <input type="search" id="recherche-message" name="recherche" placeholder="Ex : partenariat">
+                    </p>
+
+                    <p>
+                        <label for="filtre-sujet">Sujet</label><br>
+                        <select id="filtre-sujet" name="sujet">
+                            <option value="">Tous les sujets</option>
+                            <option value="information">Demande d'information</option>
+                            <option value="reservation">Question sur une réservation</option>
+                            <option value="reclamation">Réclamation</option>
+                            <option value="partenariat">Proposition de partenariat</option>
+                            <option value="autre">Autre</option>
+                        </select>
+                    </p>
+
+                    <p>
+                        <label for="filtre-lu">État</label><br>
+                        <select id="filtre-lu" name="lu">
+                            <option value="">Tous</option>
+                            <option value="non-lu">Non lus</option>
+                            <option value="lu">Lus</option>
+                        </select>
+                    </p>
+
+                    <p>
+                        <button type="submit">Filtrer</button>
+                        <button type="reset">Réinitialiser les filtres</button>
+                    </p>
+                </fieldset>
+            </form>
+        </section>
+
+        <section aria-labelledby="liste-messages">
+            <h2 id="liste-messages">Liste des messages</h2>
+            <table>
+                <caption>Messages reçus via le formulaire de contact</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Date</th>
+                        <th scope="col">Expéditeur</th>
+                        <th scope="col">Courriel</th>
+                        <th scope="col">Sujet</th>
+                        <th scope="col">État</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>05/04/2026</td>
+                        <td>Claire Dubois</td>
+                        <td>claire.d@email.be</td>
+                        <td>Demande d'information</td>
+                        <td>Non lu</td>
+                        <td>
+                            <a href="#">Lire ce message</a> |
+                            <a href="#">Supprimer ce message</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>04/04/2026</td>
+                        <td>Thomas Vermeer</td>
+                        <td>t.vermeer@email.be</td>
+                        <td>Proposition de partenariat</td>
+                        <td>Non lu</td>
+                        <td>
+                            <a href="#">Lire ce message</a> |
+                            <a href="#">Supprimer ce message</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>03/04/2026</td>
+                        <td>Nadia Bensalem</td>
+                        <td>nadia.b@email.be</td>
+                        <td>Question sur une réservation</td>
+                        <td>Non lu</td>
+                        <td>
+                            <a href="#">Lire ce message</a> |
+                            <a href="#">Supprimer ce message</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>01/04/2026</td>
+                        <td>Pierre Lejeune</td>
+                        <td>p.lejeune@email.be</td>
+                        <td>Réclamation</td>
+                        <td>Lu</td>
+                        <td>
+                            <a href="#">Relire ce message</a> |
+                            <a href="#">Supprimer ce message</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>30/03/2026</td>
+                        <td>Emma Van den Berg</td>
+                        <td>emma.vdb@email.be</td>
+                        <td>Demande d'information</td>
+                        <td>Lu</td>
+                        <td>
+                            <a href="#">Relire ce message</a> |
+                            <a href="#">Supprimer ce message</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <footer>
+        <p><small>&copy; 2026 BE CHILL – Espace d'administration</small></p>
+    </footer>
+
+</body>
+</html>
