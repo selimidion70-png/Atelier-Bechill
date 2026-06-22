@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($pageTitle ?? 'Administration BE CHILL') ?></title>
-    <link rel="stylesheet" href="/Atelier-Bechill/style.css">
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
 
@@ -15,10 +15,10 @@
 
 <nav aria-label="Navigation administration">
     <ul>
-        <li><a href="/Atelier-Bechill/admin">Tableau de bord</a></li>
-        <li><a href="/Atelier-Bechill/admin/soins">Gérer les soins</a></li>
-        <li><a href="/Atelier-Bechill/admin/messages">Messages reçus</a></li>
-        <li><a href="/Atelier-Bechill/admin/logout">Déconnexion</a></li>
+        <li><a href="/admin">Tableau de bord</a></li>
+        <li><a href="/admin/soins">Gérer les soins</a></li>
+        <li><a href="/admin/messages">Messages reçus</a></li>
+        <li><a href="/admin/logout">Déconnexion</a></li>
     </ul>
 </nav>
 

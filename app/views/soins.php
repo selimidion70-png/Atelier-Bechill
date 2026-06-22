@@ -4,7 +4,7 @@
 
     <section aria-labelledby="filtres-catalogue">
         <h2 id="filtres-catalogue">Rechercher un soin</h2>
-        <form action="/Atelier-Bechill/soins" method="get">
+        <form action="/soins" method="get">
             <fieldset>
                 <legend>Filtrer le catalogue</legend>
 
@@ -54,7 +54,7 @@
 
                 <p>
                     <button type="submit">Rechercher</button>
-                    <a href="/Atelier-Bechill/soins">Réinitialiser</a>
+                    <a href="/soins">Réinitialiser</a>
                 </p>
             </fieldset>
         </form>
@@ -72,8 +72,8 @@
                         <p><strong>Durée :</strong> <?= (int)$soin['duree'] ?> min</p>
                         <p><strong>Prix :</strong> <?= number_format((float)$soin['prix'], 2, ',', ' ') ?> €</p>
                         <p><?= htmlspecialchars($soin['description_courte']) ?></p>
-                        <p><a href="/Atelier-Bechill/soin-detail?slug=<?= urlencode($soin['slug']) ?>">Voir le détail</a></p>
-                        <p><a href="/Atelier-Bechill/reservation.html">Réserver</a></p>
+                        <p><a href="/soin-detail?slug=<?= urlencode($soin['slug']) ?>">Voir le détail</a></p>
+                        <p><a href="/reservation.html">Réserver</a></p>
                     </article>
                 <?php endforeach; ?>
             </section>

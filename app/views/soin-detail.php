@@ -1,8 +1,8 @@
 <main>
     <nav aria-label="Fil d'Ariane">
         <ol>
-            <li><a href="/Atelier-Bechill/">Accueil</a></li>
-            <li><a href="/Atelier-Bechill/soins">Nos soins</a></li>
+            <li><a href="/">Accueil</a></li>
+            <li><a href="/soins">Nos soins</a></li>
             <li aria-current="page"><?= htmlspecialchars($soin['titre']) ?></li>
         </ol>
     </nav>
@@ -37,7 +37,7 @@
             </dl>
         </section>
 
-        <p><a href="/Atelier-Bechill/reservation.html">Réserver ce soin</a></p>
-        <p><a href="/Atelier-Bechill/soins">Retour à la liste</a></p>
+        <p><a href="/reservation.html">Réserver ce soin</a></p>
+        <p><a href="/soins">Retour à la liste</a></p>
     </article>
 </main>

@@ -23,9 +23,9 @@
     <section aria-labelledby="acces-rapide">
         <h2 id="acces-rapide">Accès rapide</h2>
         <ul>
-            <li><a href="/Atelier-Bechill/admin/soins-ajouter">Ajouter un nouveau soin</a></li>
-            <li><a href="/Atelier-Bechill/admin/messages">Lire les messages</a></li>
-            <li><a href="/Atelier-Bechill/">Voir le site public</a></li>
+            <li><a href="/admin/soins-ajouter">Ajouter un nouveau soin</a></li>
+            <li><a href="/admin/messages">Lire les messages</a></li>
+            <li><a href="/">Voir le site public</a></li>
         </ul>
     </section>
 

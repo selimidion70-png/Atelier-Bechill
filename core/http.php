@@ -6,8 +6,7 @@
 // Ex: /soins/detail → ['soins', 'detail']
 function http_in(string $uri): array
 {
-    // On retire le préfixe du projet (ex: /Atelier-Bechill)
-    $uri = preg_replace('#^/Atelier-Bechill#', '', $uri);
+   
 
     // On retire les paramètres GET (?slug=...)
     $uri = strtok($uri, '?');
@@ -29,6 +28,6 @@ function http_out(int $code, string $body): void
 // Redirige vers une URL
 function redirect(string $url): void
 {
-    header('Location: /Atelier-Bechill' . $url);
+    header('Location: ' . $url);
     exit;
 }

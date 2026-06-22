@@ -15,7 +15,7 @@
         </div>
     <?php endif; ?>
 
-    <form action="/Atelier-Bechill/contact" method="post">
+    <form action="/contact" method="post">
         <fieldset>
             <legend>Vos coordonnées</legend>
             <p>

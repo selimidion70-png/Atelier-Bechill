@@ -15,14 +15,14 @@
 
 <nav aria-label="Navigation principale">
     <ul>
-        <li><a href="/Atelier-Bechill/">Accueil</a></li>
-        <li><a href="/Atelier-Bechill/soins">Nos soins</a></li>
-        <li><a href="/Atelier-Bechill/tarifs.html">Tarifs</a></li>
-        <li><a href="/Atelier-Bechill/reservation.html">Réservation</a></li>
-        <li><a href="/Atelier-Bechill/apropos.html">À propos</a></li>
-        <li><a href="/Atelier-Bechill/contact">Contact</a></li>
+        <li><a href="/">Accueil</a></li>
+        <li><a href="/soins">Nos soins</a></li>
+        <li><a href="/tarifs.html">Tarifs</a></li>
+        <li><a href="/reservation.html">Réservation</a></li>
+        <li><a href="/apropos.html">À propos</a></li>
+        <li><a href="/contact">Contact</a></li>
     </ul>
-    <form action="/Atelier-Bechill/soins" method="get" role="search">
+    <form action="/soins" method="get" role="search">
         <label for="recherche-nav">Rechercher un soin</label>
         <input type="search" id="recherche-nav" name="recherche"
                placeholder="Ex : relaxant, sportif…"
@@ -46,9 +46,9 @@
     </section>
     <nav aria-label="Navigation secondaire">
         <ul>
-            <li><a href="/Atelier-Bechill/">Accueil</a></li>
-            <li><a href="/Atelier-Bechill/soins">Nos soins</a></li>
-            <li><a href="/Atelier-Bechill/contact">Contact</a></li>
+            <li><a href="/">Accueil</a></li>
+            <li><a href="/soins">Nos soins</a></li>
+            <li><a href="/contact">Contact</a></li>
         </ul>
     </nav>
     <p><small>&copy; 2026 BE CHILL – Tous droits réservés</small></p>

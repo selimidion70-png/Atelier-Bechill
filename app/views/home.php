@@ -11,8 +11,8 @@
                 <article>
                     <h3><?= htmlspecialchars($soin['titre']) ?></h3>
                     <p><?= htmlspecialchars($soin['description_courte']) ?></p>
-                    <p><a href="/Atelier-Bechill/soin-detail?slug=<?= urlencode($soin['slug']) ?>">Voir le détail</a></p>
-                    <p><a href="/Atelier-Bechill/reservation.html">Réserver</a></p>
+                    <p><a href="/soin-detail?slug=<?= urlencode($soin['slug']) ?>">Voir le détail</a></p>
+                    <p><a href="/reservation.html">Réserver</a></p>
                 </article>
             <?php endforeach; ?>
         <?php endif; ?>
@@ -26,7 +26,7 @@
             <li>Cadre calme et apaisant</li>
             <li>Soins adaptés à vos besoins</li>
         </ul>
-        <p><a href="/Atelier-Bechill/apropos.html">En savoir plus sur notre équipe</a></p>
+        <p><a href="/apropos.html">En savoir plus sur notre équipe</a></p>
     </section>
 
     <section aria-labelledby="horaires">
