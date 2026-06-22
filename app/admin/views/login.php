@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($pageTitle ?? 'Connexion') ?></title>
-    <link rel="stylesheet" href="/Atelier-Bechill/style.css">
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
 
@@ -19,7 +19,7 @@
         <p role="alert" style="color:red;"><?= htmlspecialchars($erreur) ?></p>
     <?php endif; ?>
 
-    <form action="/Atelier-Bechill/admin/login" method="post">
+    <form action="/admin/login" method="post">
         <fieldset>
             <legend>Identifiants de connexion</legend>
             <p>
@@ -35,7 +35,7 @@
             <button type="submit">Se connecter</button>
         </p>
     </form>
-    <p><a href="/Atelier-Bechill/">Retour au site public</a></p>
+    <p><a href="/">Retour au site public</a></p>
 </main>
 
 <footer>

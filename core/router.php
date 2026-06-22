@@ -19,7 +19,7 @@ function run(string $route, string $base, PDO $pdo): string
 
     if (!file_exists($file)) {
         http_response_code(404);
-        return '<main><h1>Page introuvable</h1><p><a href="/Atelier-Bechill/">Retour à l\'accueil</a></p></main>';
+        return '<main><h1>Page introuvable</h1><p><a href="/">Retour à l\'accueil</a></p></main>';
     }
 
     // Le controller doit retourner une string HTML via ob_start/ob_get_clean
