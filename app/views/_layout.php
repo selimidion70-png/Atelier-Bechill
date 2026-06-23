@@ -8,28 +8,29 @@
 </head>
 <body>
 
-<header>
-    <p>BE CHILL</p>
-    <p>Salon de massage et bien-être à Bruxelles</p>
+<header class="site-header">
+    <div class="site-header__left">
+        <a href="/" class="site-header__brand">BE CHILL</a>
+        <p class="site-header__tagline">Salon de massage &amp; bien-être · Bruxelles</p>
+    </div>
+    <nav class="site-header__nav" aria-label="Navigation principale">
+        <ul>
+            <li><a href="/">Accueil</a></li>
+            <li><a href="/soins">Nos soins</a></li>
+            <li><a href="/tarifs">Tarifs</a></li>
+            <li><a href="/reservation">Réservation</a></li>
+            <li><a href="/apropos">À propos</a></li>
+            <li><a href="/contact">Contact</a></li>
+        </ul>
+        <form action="/soins" method="get" role="search">
+            <label for="recherche-nav">Rechercher un soin</label>
+            <input type="search" id="recherche-nav" name="recherche"
+                   placeholder="Rechercher…"
+                   value="<?= htmlspecialchars($_GET['recherche'] ?? '') ?>">
+            <button type="submit">&#128269;</button>
+        </form>
+    </nav>
 </header>
-
-<nav aria-label="Navigation principale">
-    <ul>
-        <li><a href="/">Accueil</a></li>
-        <li><a href="/soins">Nos soins</a></li>
-        <li><a href="/tarifs.html">Tarifs</a></li>
-        <li><a href="/reservation.html">Réservation</a></li>
-        <li><a href="/apropos.html">À propos</a></li>
-        <li><a href="/contact">Contact</a></li>
-    </ul>
-    <form action="/soins" method="get" role="search">
-        <label for="recherche-nav">Rechercher un soin</label>
-        <input type="search" id="recherche-nav" name="recherche"
-               placeholder="Ex : relaxant, sportif…"
-               value="<?= htmlspecialchars($_GET['recherche'] ?? '') ?>">
-        <button type="submit">Rechercher</button>
-    </form>
-</nav>
 
 <?= $page_content ?>
 

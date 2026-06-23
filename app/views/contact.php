@@ -6,7 +6,7 @@
     <?php endif; ?>
 
     <?php if (!empty($erreurs)): ?>
-        <div role="alert" style="color:red;">
+        <div role="alert">
             <ul>
                 <?php foreach ($erreurs as $e): ?>
                     <li><?= htmlspecialchars($e) ?></li>
