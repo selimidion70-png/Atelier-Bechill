@@ -8,9 +8,9 @@
 </head>
 <body>
 
-<header>
-    <p>BE CHILL – Administration</p>
-    <p>Connecté en tant que : <?= htmlspecialchars($_SESSION['operator_nom'] ?? '') ?></p>
+<header class="site-header">
+    <a href="/" class="site-header__brand">BE CHILL <span class="site-header__admin-badge">Admin</span></a>
+    <p class="site-header__tagline">Connecté en tant que : <?= htmlspecialchars($_SESSION['operator_nom'] ?? '') ?></p>
 </header>
 
 <nav aria-label="Navigation administration">
