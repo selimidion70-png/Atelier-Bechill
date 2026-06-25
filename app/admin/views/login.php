@@ -1,17 +1,3 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= htmlspecialchars($pageTitle ?? 'Connexion') ?></title>
-    <link rel="stylesheet" href="/style.css">
-</head>
-<body>
-
-<header>
-    <p>BE CHILL – Administration</p>
-</header>
-
 <main>
     <h1>Connexion à l'espace d'administration</h1>
 
@@ -37,10 +23,3 @@
     </form>
     <p><a href="/">Retour au site public</a></p>
 </main>
-
-<footer>
-    <p><small>&copy; 2026 BE CHILL</small></p>
-</footer>
-
-</body>
-</html>
