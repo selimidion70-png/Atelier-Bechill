@@ -37,7 +37,7 @@
             </dl>
         </section>
 
-        <p><a href="/reservation.html">Réserver ce soin</a></p>
+        <p><a href="/reservation">Réserver ce soin</a></p>
         <p><a href="/soins">Retour à la liste</a></p>
     </article>
 </main>

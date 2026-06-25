@@ -2,6 +2,21 @@
     <h1>Réserver un soin</h1>
     <p>Remplissez le formulaire ci-dessous pour réserver votre séance. Nous vous confirmerons votre rendez-vous par courriel ou par téléphone.</p>
 
+    <?php if ($succes): ?>
+        <p role="status">Votre réservation a bien été envoyée. Nous vous contacterons rapidement pour confirmer votre rendez-vous.</p>
+    <?php endif; ?>
+
+    <?php if (!empty($erreurs)): ?>
+        <div role="alert">
+            <ul>
+                <?php foreach ($erreurs as $e): ?>
+                    <li><?= htmlspecialchars($e) ?></li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    <?php endif; ?>
+
+    <?php if (!$succes): ?>
     <form action="/reservation" method="post">
         <fieldset>
             <legend>Vos coordonnées</legend>
@@ -93,4 +108,5 @@
             <button type="reset">Réinitialiser</button>
         </p>
     </form>
+    <?php endif; ?>
 </main>

@@ -73,7 +73,7 @@
                         <p><strong>Prix :</strong> <?= number_format((float)$soin['prix'], 2, ',', ' ') ?> €</p>
                         <p><?= htmlspecialchars($soin['description_courte']) ?></p>
                         <p><a href="/soin-detail?slug=<?= urlencode($soin['slug']) ?>">Voir le détail</a></p>
-                        <p><a href="/reservation.html">Réserver</a></p>
+                        <p><a href="/reservation">Réserver</a></p>
                     </article>
                 <?php endforeach; ?>
             </section>

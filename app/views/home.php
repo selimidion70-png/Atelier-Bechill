@@ -12,7 +12,7 @@
                     <h3><?= htmlspecialchars($soin['titre']) ?></h3>
                     <p><?= htmlspecialchars($soin['description_courte']) ?></p>
                     <p><a href="/soin-detail?slug=<?= urlencode($soin['slug']) ?>">Voir le détail</a></p>
-                    <p><a href="/reservation.html">Réserver</a></p>
+                    <p><a href="/reservation">Réserver</a></p>
                 </article>
             <?php endforeach; ?>
         <?php endif; ?>
