@@ -10,9 +10,12 @@
 
 <header class="site-header">
     <a href="/" class="site-header__brand">BE CHILL <span class="site-header__admin-badge">Admin</span></a>
-    <p class="site-header__tagline">Connecté en tant que : <?= htmlspecialchars($_SESSION['operator_nom'] ?? '') ?></p>
+    <?php if (!empty($_SESSION['operator_nom'])): ?>
+        <p class="site-header__tagline">Connecté en tant que : <?= htmlspecialchars($_SESSION['operator_nom']) ?></p>
+    <?php endif; ?>
 </header>
 
+<?php if (!empty($_SESSION['operator_id'])): ?>
 <nav aria-label="Navigation administration">
     <ul>
         <li><a href="/admin">Tableau de bord</a></li>
@@ -21,6 +24,7 @@
         <li><a href="/admin/logout">Déconnexion</a></li>
     </ul>
 </nav>
+<?php endif; ?>
 
 <?= $page_content ?>
 
