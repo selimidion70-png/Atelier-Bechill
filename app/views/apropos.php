@@ -34,7 +34,7 @@
         </article>
 
         <article>
-            <h3>Karim Benali</h3>
+            <h3>Redon Qerka</h3>
             <p><strong>Masseur et coach sportif</strong></p>
             <p>Formé en massage sportif et thérapeutique, Karim accompagne les sportifs dans leur récupération et leur prévention des blessures.</p>
         </article>
