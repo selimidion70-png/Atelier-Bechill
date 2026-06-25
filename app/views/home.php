@@ -26,7 +26,7 @@
             <li>Cadre calme et apaisant</li>
             <li>Soins adaptés à vos besoins</li>
         </ul>
-        <p><a href="/apropos.html">En savoir plus sur notre équipe</a></p>
+        <p><a href="/apropos">En savoir plus sur notre équipe</a></p>
     </section>
 
     <section aria-labelledby="horaires">
