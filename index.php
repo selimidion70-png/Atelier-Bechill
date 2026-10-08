@@ -40,4 +40,5 @@ $body = render($base . '/views/_layout.php', [
 ]);
 
 // Envoi de la réponse
-http_out(200, $body);
+// (garde le code 404 éventuellement défini par run())
+http_out(http_response_code() ?: 200, $body);
