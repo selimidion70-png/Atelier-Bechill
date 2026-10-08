@@ -4,8 +4,7 @@ require_once __DIR__ . '/../models/item.php';
 require_once __DIR__ . '/../models/reservation.php';
 
 $erreurs = [];
-$succes  = false;
-$vide    = [
+$valeurs = [
     'nom'                => '',
     'prenom'             => '',
     'email'              => '',
@@ -16,7 +15,6 @@ $vide    = [
     'preference-contact' => 'email',
     'remarques'          => '',
 ];
-$valeurs = $vide;
 
 // Soins publiés, regroupés par catégorie pour la liste déroulante
 $soinsPublies      = item_get_all_published($pdo);
@@ -58,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!isset($_POST['conditions'])) $erreurs[] = "Vous devez accepter les conditions d'annulation.";
 
     if (empty($erreurs)) {
-        reservation_insert($pdo, [
+        $id = reservation_insert($pdo, [
             'nom'                => $valeurs['nom'],
             'prenom'             => $valeurs['prenom'],
             'email'              => $valeurs['email'],
@@ -70,14 +68,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'remarques'          => $valeurs['remarques'] !== '' ? $valeurs['remarques'] : null,
         ]);
 
-        $succes  = true;
-        $valeurs = $vide;
+        // Seule la personne qui vient de réserver peut payer cette réservation
+        $_SESSION['reservation_a_payer'] = $id;
+        redirect('/paiement');
     }
 }
 
 echo render($base . '/views/reservation.php', [
     'erreurs'           => $erreurs,
-    'succes'            => $succes,
     'valeurs'           => $valeurs,
     'soinsParCategorie' => $soinsParCategorie,
     'heures'            => RESERVATION_HEURES,
