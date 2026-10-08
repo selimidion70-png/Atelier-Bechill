@@ -19,7 +19,19 @@ $base = __DIR__ . '/app';
 $segments = http_in($_SERVER['REQUEST_URI']);
 
 // Si l'URL commence par "admin"
-if (isset($segments[0]) && $segments[0] === 'admin') {
+$estAdmin = isset($segments[0]) && $segments[0] === 'admin';
+if ($estAdmin) {
+    require 'app/admin/acces.php';
+
+    // Le compte est revérifié à chaque page : un compte désactivé est déconnecté aussitôt
+    if (!empty($_SESSION['operator_id'])) {
+        $operator = query_one($pdo, "SELECT role, actif FROM operator WHERE id = :id", ['id' => $_SESSION['operator_id']]);
+        if (!$operator || !$operator['actif'] || !isset(ADMIN_ROLES[$operator['role']])) {
+            session_destroy();
+            redirect('/admin/login');
+        }
+        $_SESSION['operator_role'] = $operator['role'];
+    }
 
     // Vérification de la session (sauf pour login)
     if (empty($_SESSION['operator_id']) && ($segments[1] ?? '') !== 'login') {
@@ -37,6 +49,9 @@ $route = route($segments);
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && !csrf_check()) {
     http_response_code(403);
     $main = '<main><h1>Formulaire expiré</h1><p>Veuillez recharger la page et renvoyer le formulaire.</p></main>';
+} elseif ($estAdmin && !empty($_SESSION['operator_id']) && !admin_peut($_SESSION['operator_role'], $route)) {
+    http_response_code(403);
+    $main = '<main><h1>Accès refusé</h1><p>Cette page est réservée à l\'administrateur. <a href="/admin">Retour au tableau de bord</a></p></main>';
 } else {
     $main = run($route, $base, $pdo);
 }

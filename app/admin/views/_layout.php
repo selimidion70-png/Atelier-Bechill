@@ -11,7 +11,7 @@
 <header class="site-header">
     <a href="/" class="site-header__brand">BE CHILL <span class="site-header__admin-badge">Admin</span></a>
     <?php if (!empty($_SESSION['operator_nom'])): ?>
-        <p class="site-header__tagline">Connecté en tant que : <?= htmlspecialchars($_SESSION['operator_nom']) ?></p>
+        <p class="site-header__tagline">Connecté en tant que : <?= htmlspecialchars($_SESSION['operator_nom']) ?> (<?= ADMIN_ROLES[$_SESSION['operator_role']] ?? '' ?>)</p>
     <?php endif; ?>
 </header>
 
@@ -24,8 +24,11 @@
         <li><a href="/admin/themes">Thèmes</a></li>
         <li><a href="/admin/tags">Tags</a></li>
         <li><a href="/admin/collections">Collections</a></li>
-        <li><a href="/admin/reservations">Réservations</a></li>
-        <li><a href="/admin/messages">Messages reçus</a></li>
+        <?php if (admin_est_admin()): ?>
+            <li><a href="/admin/reservations">Réservations</a></li>
+            <li><a href="/admin/messages">Messages reçus</a></li>
+            <li><a href="/admin/utilisateurs">Utilisateurs</a></li>
+        <?php endif; ?>
         <li><a href="/admin/logout">Déconnexion</a></li>
     </ul>
 </nav>
