@@ -23,6 +23,7 @@ require 'core/html.php';
 require 'core/query.php';
 require 'core/csrf.php';
 require 'core/mail.php';
+require 'core/mollie.php';
 
 require 'config/database.php';
 
@@ -58,8 +59,10 @@ if ($estAdmin) {
 // Détermination de la route
 $route = route($segments);
 
-// Exécution du controller (tout formulaire POST doit avoir un jeton CSRF valide)
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && !csrf_check()) {
+// Exécution du controller (tout formulaire POST doit avoir un jeton CSRF valide,
+// sauf le webhook Mollie, appelé par Mollie et non par un formulaire du site)
+$sansCsrf = !$estAdmin && $route === 'paiement-webhook';
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$sansCsrf && !csrf_check()) {
     http_response_code(403);
     $main = '<main><h1>Formulaire expiré</h1><p>Veuillez recharger la page et renvoyer le formulaire.</p></main>';
 } elseif ($estAdmin && !empty($_SESSION['operator_id']) && !admin_peut($_SESSION['operator_role'], $route)) {

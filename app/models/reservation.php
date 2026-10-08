@@ -80,13 +80,27 @@ function reservation_get_by_id(PDO $pdo, int $id): array|false
     ", ['id' => $id]);
 }
 
-// Paiement simulé : marque la réservation comme payée
-function reservation_set_payee(PDO $pdo, int $id): void
+// Marque la réservation comme payée.
+// Retourne true seulement si elle ne l'était pas encore (évite d'envoyer deux fois l'email
+// quand le retour du client et le webhook Mollie arrivent en même temps).
+function reservation_set_payee(PDO $pdo, int $id): bool
 {
-    query_run($pdo, "
+    $stmt = $pdo->prepare("
         UPDATE reservation SET paiement = 'payee', date_paiement = NOW()
         WHERE id = :id AND paiement = 'non_payee'
-    ", ['id' => $id]);
+    ");
+    $stmt->execute(['id' => $id]);
+    return $stmt->rowCount() === 1;
+}
+
+function reservation_set_mollie_id(PDO $pdo, int $id, string $mollieId): void
+{
+    query_run($pdo, "UPDATE reservation SET mollie_id = :mollie_id WHERE id = :id", ['mollie_id' => $mollieId, 'id' => $id]);
+}
+
+function reservation_get_by_mollie_id(PDO $pdo, string $mollieId): array|false
+{
+    return query_one($pdo, "SELECT id FROM reservation WHERE mollie_id = :mollie_id", ['mollie_id' => $mollieId]);
 }
 
 function reservation_get_all(PDO $pdo, string $statut = ''): array

@@ -6,9 +6,16 @@
     <?php elseif ($etape === 'sur_place'): ?>
         <h1>Votre réservation est enregistrée</h1>
         <p role="status">Vous réglerez <strong><?= $montant ?></strong> sur place, le jour du rendez-vous. Nous vous contacterons rapidement pour confirmer votre rendez-vous.</p>
+    <?php elseif ($etape === 'en_cours'): ?>
+        <h1>Paiement en cours de confirmation</h1>
+        <p role="status">Votre paiement de <strong><?= $montant ?></strong> est en cours de traitement par votre banque. Vous recevrez un email dès qu'il sera confirmé.</p>
     <?php else: ?>
         <h1>Paiement de votre réservation</h1>
         <p>Votre demande est enregistrée. Vous pouvez la régler maintenant en ligne ou sur place.</p>
+    <?php endif; ?>
+
+    <?php if ($erreur !== ''): ?>
+        <div role="alert"><p><?= htmlspecialchars($erreur) ?></p></div>
     <?php endif; ?>
 
     <section aria-labelledby="recapitulatif" class="paiement__recap">
@@ -36,9 +43,13 @@
                 <li>Apple Pay</li>
             </ul>
 
-            <p class="paiement__demo" role="note">
-                <strong>Démonstration :</strong> ce paiement est simulé. Aucune donnée de carte n'est demandée et aucun montant n'est débité.
-            </p>
+            <?php if (mollie_actif()): ?>
+                <p>Vous allez être redirigé vers la page de paiement sécurisée de notre prestataire <strong>Mollie</strong>. Vos données bancaires ne passent jamais par notre site.</p>
+            <?php else: ?>
+                <p class="paiement__demo" role="note">
+                    <strong>Démonstration :</strong> ce paiement est simulé. Aucune donnée de carte n'est demandée et aucun montant n'est débité.
+                </p>
+            <?php endif; ?>
 
             <form action="/paiement" method="post" class="paiement__actions">
                 <?= csrf_field() ?>
