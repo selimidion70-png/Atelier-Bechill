@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $erreur = "Identifiant ou mot de passe incorrect.";
         } elseif (!password_verify($motDePasse, $operator['mot_de_passe'])) {
             $erreur = "Identifiant ou mot de passe incorrect.";
-        } elseif ($operator['role'] !== 'admin') {
+        } elseif (!isset(ADMIN_ROLES[$operator['role']])) {
             $erreur = "Accès non autorisé.";
         } else {
             // Nouvel identifiant de session à la connexion (protection contre le vol de session)
