@@ -38,11 +38,11 @@
     <section aria-labelledby="coordonnees-footer">
         <h2 id="coordonnees-footer">Coordonnées</h2>
         <address>
-            BE CHILL – Salon de massage<br>
-            Rue de la Détente 10<br>
-            1000 Bruxelles<br>
-            Téléphone : <a href="tel:+32470000000">+32&nbsp;470&nbsp;00&nbsp;00&nbsp;00</a><br>
-            Courriel : <a href="mailto:info@bechill.be">info@bechill.be</a>
+            <?= htmlspecialchars(salon('nom') . ' – ' . salon('activite')) ?><br>
+            <?= htmlspecialchars(salon('adresse')) ?><br>
+            <?= htmlspecialchars(salon('code_postal') . ' ' . salon('ville')) ?><br>
+            Téléphone : <a href="tel:<?= preg_replace('/[^0-9+]/', '', salon('telephone')) ?>"><?= str_replace(' ', '&nbsp;', htmlspecialchars(salon('telephone'))) ?></a><br>
+            Courriel : <a href="mailto:<?= htmlspecialchars(salon('email')) ?>"><?= htmlspecialchars(salon('email')) ?></a>
         </address>
     </section>
     <nav aria-label="Navigation secondaire">
@@ -50,9 +50,11 @@
             <li><a href="/">Accueil</a></li>
             <li><a href="/soins">Nos soins</a></li>
             <li><a href="/contact">Contact</a></li>
+            <li><a href="/mentions-legales">Mentions légales</a></li>
+            <li><a href="/confidentialite">Politique de confidentialité</a></li>
         </ul>
     </nav>
-    <p><small>&copy; 2026 BE CHILL – Tous droits réservés</small></p>
+    <p><small>&copy; <?= date('Y') ?> <?= htmlspecialchars(salon('nom')) ?> – Tous droits réservés</small></p>
 </footer>
 
 </body>

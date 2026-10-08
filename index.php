@@ -2,6 +2,19 @@
 // index.php
 // Point d'entrée unique — toutes les requêtes passent par ici
 
+require 'core/config.php';
+
+// En production : erreurs PHP cachées aux visiteurs (elles vont dans le journal du serveur)
+$production = config('environnement') === 'production';
+ini_set('display_errors', $production ? '0' : '1');
+error_reporting(E_ALL);
+
+// Cookie de session : inaccessible au JavaScript, non envoyé depuis d'autres sites, HTTPS en production
+session_set_cookie_params([
+    'httponly' => true,
+    'samesite' => 'Lax',
+    'secure'   => $production,
+]);
 session_start();
 
 require 'core/http.php';
