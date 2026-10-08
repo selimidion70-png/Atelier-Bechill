@@ -3,8 +3,6 @@
 // Envoi d'emails texte en UTF-8.
 // En local avec Laragon, les emails sont capturés par Mailpit (http://localhost:8025) : rien ne part vraiment.
 
-const MAIL_EXPEDITEUR = 'BE CHILL <info@bechill.be>';
-
 // Retourne true si l'email a été remis au serveur de mail.
 // Un échec n'interrompt jamais la page : il est seulement noté dans le journal d'erreurs.
 function mail_envoyer(string $destinataire, string $sujet, string $texte): bool
@@ -14,7 +12,7 @@ function mail_envoyer(string $destinataire, string $sujet, string $texte): bool
     }
 
     $entetes = implode("\r\n", [
-        'From: ' . MAIL_EXPEDITEUR,
+        'From: ' . config('email_expediteur'),
         'MIME-Version: 1.0',
         'Content-Type: text/plain; charset=UTF-8',
         'Content-Transfer-Encoding: 8bit',
@@ -25,4 +23,11 @@ function mail_envoyer(string $destinataire, string $sujet, string $texte): bool
         error_log("BE CHILL : échec de l'envoi de l'email « $sujet » à $destinataire");
     }
     return $ok;
+}
+
+// Signature ajoutée à la fin des emails (coordonnées du salon, depuis config/app.php)
+function mail_signature(): string
+{
+    return "L'équipe " . salon('nom') . "\n"
+         . salon('adresse') . ", " . salon('code_postal') . " " . salon('ville') . " – " . salon('telephone');
 }

@@ -138,9 +138,9 @@ function reservation_envoyer_email(PDO $pdo, int $id, string $etape): void
     };
 
     $texte = "Bonjour {$r['prenom']},\n\n$message\n\n$detail\n\n"
-           . "À bientôt,\nL'équipe BE CHILL\nRue de la Détente 10, 1000 Bruxelles – +32 470 00 00 00";
+           . "À bientôt,\n" . mail_signature();
 
-    mail_envoyer($r['email'], "BE CHILL – $sujet", $texte);
+    mail_envoyer($r['email'], salon('nom') . " – $sujet", $texte);
 }
 
 function reservation_delete(PDO $pdo, int $id): void
