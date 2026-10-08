@@ -16,6 +16,7 @@
     <?php endif; ?>
 
     <form action="/contact" method="post">
+        <?= csrf_field() ?>
         <fieldset>
             <legend>Vos coordonnées</legend>
             <p>

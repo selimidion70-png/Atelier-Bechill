@@ -40,12 +40,14 @@ Atelier-Bechill/
 │   ├── http.php           ← Fonctions HTTP (http_in, http_out, redirect)
 │   ├── router.php         ← Router (route, run)
 │   ├── html.php           ← Fonction render (injection de vues)
-│   └── query.php          ← Fonctions PDO réutilisables
+│   ├── query.php          ← Fonctions PDO réutilisables
+│   └── csrf.php           ← Jeton CSRF des formulaires POST
 │
 └── app/
     ├── models/
     │   ├── item.php        ← Requêtes SQL sur les soins
-    │   └── message.php     ← Requêtes SQL sur les messages
+    │   ├── message.php     ← Requêtes SQL sur les messages
+    │   └── reservation.php ← Requêtes SQL sur les réservations
     │
     ├── controllers/
     │   ├── home.php        ← Page d'accueil
@@ -68,6 +70,7 @@ Atelier-Bechill/
         │   ├── soins.php         ← Liste des soins (publier, supprimer)
         │   ├── soins-ajouter.php ← Ajout d'un soin
         │   ├── soins-modifier.php← Modification d'un soin (+ tags)
+        │   ├── reservations.php  ← Réservations (confirmer, annuler, supprimer)
         │   └── messages.php      ← Messages reçus
         └── views/
             ├── _layout.php       ← Layout admin

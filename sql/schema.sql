@@ -14,6 +14,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS collection_item;
 DROP TABLE IF EXISTS collection;
 DROP TABLE IF EXISTS item_tag;
+DROP TABLE IF EXISTS reservation;
 DROP TABLE IF EXISTS message;
 DROP TABLE IF EXISTS item;
 DROP TABLE IF EXISTS tag;
@@ -94,6 +95,25 @@ CREATE TABLE message (
     texte      TEXT NOT NULL,
     lu         TINYINT(1) NOT NULL DEFAULT 0,
     date_envoi DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ------------------------------------------------------------
+-- Demandes de réservation (formulaire public)
+-- ------------------------------------------------------------
+CREATE TABLE reservation (
+    id                 INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    nom                VARCHAR(100) NOT NULL,
+    prenom             VARCHAR(100) NOT NULL,
+    email              VARCHAR(150) NOT NULL,
+    telephone          VARCHAR(30)  NULL,
+    item_id            INT UNSIGNED NULL,
+    date_rdv           DATE NOT NULL,
+    heure_rdv          TIME NOT NULL,
+    preference_contact ENUM('email', 'telephone') NOT NULL DEFAULT 'email',
+    remarques          TEXT NULL,
+    statut             ENUM('en_attente', 'confirmee', 'annulee') NOT NULL DEFAULT 'en_attente',
+    date_envoi         DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_reservation_item FOREIGN KEY (item_id) REFERENCES item(id) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ------------------------------------------------------------

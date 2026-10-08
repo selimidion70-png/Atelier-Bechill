@@ -20,6 +20,7 @@
     <?php endif; ?>
 
     <form action="/admin/soins-modifier?id=<?= $id ?>" method="post">
+        <?= csrf_field() ?>
         <fieldset>
             <legend>Informations générales</legend>
             <p>
