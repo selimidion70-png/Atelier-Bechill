@@ -21,6 +21,25 @@
         <?php endif; ?>
     </section>
 
+    <?php if (!empty($collections)): ?>
+        <section aria-labelledby="nos-selections">
+            <h2 id="nos-selections">Nos sélections</h2>
+            <?php foreach ($collections as $c): ?>
+                <article>
+                    <h3><?= htmlspecialchars($c['nom']) ?></h3>
+                    <ul>
+                        <?php foreach ($c['soins'] as $s): ?>
+                            <li>
+                                <a href="/soin-detail?slug=<?= urlencode($s['slug']) ?>"><?= htmlspecialchars($s['titre']) ?></a>
+                                – <?= (int)$s['duree'] ?> min, <?= number_format((float)$s['prix'], 2, ',', ' ') ?> €
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </article>
+            <?php endforeach; ?>
+        </section>
+    <?php endif; ?>
+
     <section aria-labelledby="pourquoi-nous">
         <h2 id="pourquoi-nous">Pourquoi choisir BE CHILL ?</h2>
         <ul>
