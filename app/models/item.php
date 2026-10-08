@@ -101,6 +101,29 @@ function item_get_all(PDO $pdo): array
     ");
 }
 
+// Génère le slug à partir du titre. Ex: "Massage été" → "massage-ete"
+function item_slug(string $titre): string
+{
+    $slug = iconv('UTF-8', 'ASCII//TRANSLIT', $titre);
+    // Sous Windows, iconv transforme "é" en "'e" : on retire ces accents résiduels
+    $slug = str_replace(["'", '`', '^', '"', '~'], '', $slug);
+    return trim(strtolower(preg_replace('/[^a-z0-9]+/i', '-', $slug)), '-');
+}
+
+// Vérifie si un slug est déjà utilisé par un autre soin (colonne UNIQUE en BDD)
+function item_slug_exists(PDO $pdo, string $slug, int $exclude_id = 0): bool
+{
+    return (bool)query_one($pdo, "SELECT id FROM item WHERE slug = :slug AND id != :id", [
+        'slug' => $slug,
+        'id'   => $exclude_id,
+    ]);
+}
+
+function item_get_by_id(PDO $pdo, int $id): array|false
+{
+    return query_one($pdo, "SELECT * FROM item WHERE id = :id", ['id' => $id]);
+}
+
 function item_insert(PDO $pdo, array $data): int
 {
     query_run($pdo, "
