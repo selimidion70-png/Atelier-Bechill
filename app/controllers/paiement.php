@@ -29,6 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($etape === 'payee') {
         reservation_set_payee($pdo, $id);
+        reservation_envoyer_email($pdo, $id, 'payee');
     }
 
     unset($_SESSION['reservation_a_payer']);

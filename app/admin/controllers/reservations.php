@@ -5,6 +5,9 @@ require_once __DIR__ . '/../../models/reservation.php';
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['statut_id'], $_POST['statut'])
     && array_key_exists($_POST['statut'], RESERVATION_STATUTS)) {
     reservation_set_statut($pdo, (int)$_POST['statut_id'], $_POST['statut']);
+    if ($_POST['statut'] !== 'en_attente') {
+        reservation_envoyer_email($pdo, (int)$_POST['statut_id'], $_POST['statut']);
+    }
     redirect('/admin/reservations');
 }
 

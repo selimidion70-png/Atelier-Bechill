@@ -9,6 +9,7 @@ require 'core/router.php';
 require 'core/html.php';
 require 'core/query.php';
 require 'core/csrf.php';
+require 'core/mail.php';
 
 require 'config/database.php';
 

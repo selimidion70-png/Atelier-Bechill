@@ -113,6 +113,36 @@ function reservation_set_statut(PDO $pdo, int $id, string $statut): void
     query_run($pdo, "UPDATE reservation SET statut = :statut WHERE id = :id", ['statut' => $statut, 'id' => $id]);
 }
 
+// Envoie au client l'email correspondant à l'étape : 'recue', 'payee', 'confirmee' ou 'annulee'
+function reservation_envoyer_email(PDO $pdo, int $id, string $etape): void
+{
+    $r = reservation_get_by_id($pdo, $id);
+    if (!$r) {
+        return;
+    }
+
+    $montant = number_format((float)$r['montant'], 2, ',', ' ') . ' €';
+    $detail  = "Soin : " . ($r['soin'] ?? '—') . ($r['duree'] ? " ({$r['duree']} min)" : '') . "\n"
+             . "Date : " . date('d/m/Y', strtotime($r['date_rdv'])) . " à " . substr($r['heure_rdv'], 0, 5) . "\n"
+             . "Montant : $montant";
+
+    [$sujet, $message] = match ($etape) {
+        'recue'     => ["Votre demande de réservation",
+                        "Nous avons bien reçu votre demande de réservation. Nous vous contacterons rapidement pour la confirmer."],
+        'payee'     => ["Paiement reçu pour votre réservation",
+                        "Nous avons bien reçu votre paiement de $montant. Merci !"],
+        'confirmee' => ["Votre rendez-vous est confirmé",
+                        "Bonne nouvelle : votre rendez-vous est confirmé. Nous avons hâte de vous accueillir."],
+        'annulee'   => ["Votre rendez-vous a été annulé",
+                        "Votre rendez-vous a été annulé. N'hésitez pas à nous contacter ou à réserver un autre créneau."],
+    };
+
+    $texte = "Bonjour {$r['prenom']},\n\n$message\n\n$detail\n\n"
+           . "À bientôt,\nL'équipe BE CHILL\nRue de la Détente 10, 1000 Bruxelles – +32 470 00 00 00";
+
+    mail_envoyer($r['email'], "BE CHILL – $sujet", $texte);
+}
+
 function reservation_delete(PDO $pdo, int $id): void
 {
     query_run($pdo, "DELETE FROM reservation WHERE id = :id", ['id' => $id]);
