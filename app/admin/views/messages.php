@@ -59,7 +59,7 @@
                         <td><?= htmlspecialchars($msg['nom']) ?></td>
                         <td><a href="mailto:<?= htmlspecialchars($msg['email']) ?>"><?= htmlspecialchars($msg['email']) ?></a></td>
                         <td><?= htmlspecialchars(ucfirst($msg['sujet'])) ?></td>
-                        <td><?= nl2br(htmlspecialchars(mb_substr($msg['texte'], 0, 80))) ?>…</td>
+                        <td><?= nl2br(htmlspecialchars(mb_substr($msg['texte'], 0, 80)), false) ?>…</td>
                         <td><?= $msg['lu'] ? 'Oui' : 'Non' ?></td>
                         <td>
                             <form action="/admin/messages" method="post" style="display:inline">

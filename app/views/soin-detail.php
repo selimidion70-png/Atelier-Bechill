@@ -16,7 +16,7 @@
 
         <section aria-labelledby="description-soin">
             <h2 id="description-soin">Description</h2>
-            <p><?= nl2br(htmlspecialchars($soin['description'])) ?></p>
+            <p><?= nl2br(htmlspecialchars($soin['description']), false) ?></p>
         </section>
 
         <section aria-labelledby="details-pratiques">
