@@ -41,7 +41,7 @@
             BE CHILL – Salon de massage<br>
             Rue de la Détente 10<br>
             1000 Bruxelles<br>
-            Téléphone : <a href="tel:+32470000000">+32 470 00 00 00</a><br>
+            Téléphone : <a href="tel:+32470000000">+32&nbsp;470&nbsp;00&nbsp;00&nbsp;00</a><br>
             Courriel : <a href="mailto:info@bechill.be">info@bechill.be</a>
         </address>
     </section>

@@ -45,12 +45,12 @@
                         <td>
                             <a href="mailto:<?= htmlspecialchars($r['email']) ?>"><?= htmlspecialchars($r['email']) ?></a>
                             <?php if ($r['telephone']): ?>
-                                <br><a href="tel:<?= htmlspecialchars($r['telephone']) ?>"><?= htmlspecialchars($r['telephone']) ?></a>
+                                <br><a href="tel:<?= preg_replace('/[^0-9+]/', '', $r['telephone']) ?>"><?= str_replace(' ', '&nbsp;', htmlspecialchars($r['telephone'])) ?></a>
                             <?php endif; ?>
                             <br><small>Préfère : <?= $r['preference_contact'] === 'telephone' ? 'téléphone' : 'courriel' ?></small>
                         </td>
                         <td><?= $r['soin'] !== null ? htmlspecialchars($r['soin']) . ' – ' . (int)$r['duree'] . ' min' : '<em>Soin supprimé</em>' ?></td>
-                        <td><?= $r['remarques'] !== null ? nl2br(htmlspecialchars($r['remarques'])) : '' ?></td>
+                        <td><?= $r['remarques'] !== null ? nl2br(htmlspecialchars($r['remarques']), false) : '' ?></td>
                         <td><?= $statuts[$r['statut']] ?></td>
                         <td>
                             <?= number_format((float)$r['montant'], 2, ',', ' ') ?> €<br>
