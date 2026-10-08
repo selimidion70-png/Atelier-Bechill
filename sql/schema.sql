@@ -63,6 +63,7 @@ CREATE TABLE item (
     slug               VARCHAR(160) NOT NULL UNIQUE,
     description_courte VARCHAR(255) NOT NULL,
     description        TEXT NOT NULL,
+    image              VARCHAR(255) NULL,                 -- nom du fichier dans uploads/soins/
     duree              SMALLINT UNSIGNED NOT NULL,
     prix               DECIMAL(6,2) NOT NULL,
     statut             ENUM('brouillon', 'publie', 'archive') NOT NULL DEFAULT 'brouillon',

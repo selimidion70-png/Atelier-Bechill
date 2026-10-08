@@ -18,6 +18,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $erreurs[] = "Un soin avec ce nom (ou un nom très proche) existe déjà.";
     }
 
+    // Image (facultative) : enregistrée seulement si le reste du formulaire est valide
+    $image = null;
+    if (empty($erreurs)) {
+        [$image, $erreurImage] = item_image_enregistrer($_FILES['image'] ?? null);
+        if ($erreurImage) $erreurs[] = $erreurImage;
+    }
+
     if (empty($erreurs)) {
         $pdo->beginTransaction();
 
@@ -26,6 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'slug'              => $slug,
             'description_courte'=> $valeurs['description_courte'],
             'description'       => $valeurs['description'],
+            'image'             => $image,
             'duree'             => (int)$valeurs['duree'],
             'prix'              => (float)$valeurs['prix'],
             'statut'            => $valeurs['statut'],

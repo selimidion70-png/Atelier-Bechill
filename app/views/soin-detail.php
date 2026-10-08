@@ -10,6 +10,10 @@
     <article>
         <h1><?= htmlspecialchars($soin['titre']) ?></h1>
 
+        <?php if ($soin['image']): ?>
+            <img class="soin-photo soin-photo--grande" src="<?= item_image_url($soin['image']) ?>" alt="<?= htmlspecialchars($soin['titre']) ?>">
+        <?php endif; ?>
+
         <section aria-labelledby="description-soin">
             <h2 id="description-soin">Description</h2>
             <p><?= nl2br(htmlspecialchars($soin['description'])) ?></p>

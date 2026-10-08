@@ -5,7 +5,7 @@
 function item_get_all_published(PDO $pdo): array
 {
     return query_all($pdo, "
-        SELECT item.id, item.titre, item.slug, item.description_courte,
+        SELECT item.id, item.titre, item.slug, item.description_courte, item.image,
                item.duree, item.prix,
                category.nom AS categorie,
                theme.nom AS theme
@@ -31,7 +31,7 @@ function item_get_by_slug(PDO $pdo, string $slug): array|false
 function item_get_vedettes(PDO $pdo, int $limit = 3): array
 {
     return query_all($pdo, "
-        SELECT titre, slug, description_courte
+        SELECT id, titre, slug, description_courte, image
         FROM item
         WHERE statut = 'publie'
         ORDER BY date_creation DESC
@@ -42,7 +42,7 @@ function item_get_vedettes(PDO $pdo, int $limit = 3): array
 function item_search(PDO $pdo, array $filtres): array
 {
     $sql = "
-        SELECT item.id, item.titre, item.slug, item.description_courte,
+        SELECT item.id, item.titre, item.slug, item.description_courte, item.image,
                item.duree, item.prix,
                category.id AS category_id, category.nom AS categorie,
                theme.id AS theme_id, theme.nom AS theme
@@ -93,7 +93,7 @@ function item_get_tags(PDO $pdo, int $item_id): array
 function item_get_all(PDO $pdo): array
 {
     return query_all($pdo, "
-        SELECT item.id, item.titre, item.duree, item.prix, item.statut,
+        SELECT item.id, item.titre, item.image, item.duree, item.prix, item.statut,
                category.nom AS categorie
         FROM item
         JOIN category ON item.category_id = category.id
@@ -160,8 +160,8 @@ function item_get_by_id(PDO $pdo, int $id): array|false
 function item_insert(PDO $pdo, array $data): int
 {
     query_run($pdo, "
-        INSERT INTO item (titre, slug, description_courte, description, duree, prix, statut, operator_id, theme_id, category_id)
-        VALUES (:titre, :slug, :description_courte, :description, :duree, :prix, :statut, :operator_id, :theme_id, :category_id)
+        INSERT INTO item (titre, slug, description_courte, description, image, duree, prix, statut, operator_id, theme_id, category_id)
+        VALUES (:titre, :slug, :description_courte, :description, :image, :duree, :prix, :statut, :operator_id, :theme_id, :category_id)
     ", $data);
     return (int)query_last_id($pdo);
 }
@@ -171,7 +171,7 @@ function item_update(PDO $pdo, array $data): void
     query_run($pdo, "
         UPDATE item SET
             titre = :titre, slug = :slug,
-            description_courte = :description_courte, description = :description,
+            description_courte = :description_courte, description = :description, image = :image,
             duree = :duree, prix = :prix, statut = :statut,
             theme_id = :theme_id, category_id = :category_id
         WHERE id = :id
@@ -180,7 +180,59 @@ function item_update(PDO $pdo, array $data): void
 
 function item_delete(PDO $pdo, int $id): void
 {
+    $soin = item_get_by_id($pdo, $id);
     query_run($pdo, "DELETE FROM item WHERE id = :id", ['id' => $id]);
+    if ($soin) {
+        item_image_supprimer($soin['image']);
+    }
+}
+
+// ---- Images des soins (dossier uploads/soins/) ----
+
+const ITEM_IMAGE_DOSSIER = __DIR__ . '/../../uploads/soins/';
+const ITEM_IMAGE_TYPES   = ['image/jpeg' => 'jpg', 'image/png' => 'png', 'image/webp' => 'webp'];
+const ITEM_IMAGE_MAX     = 3 * 1024 * 1024; // 3 Mo
+
+// URL publique d'une image (ou null si le soin n'en a pas)
+function item_image_url(?string $image): ?string
+{
+    return $image ? '/uploads/soins/' . rawurlencode($image) : null;
+}
+
+// Enregistre l'image envoyée par le formulaire.
+// Retourne [nom du fichier, null] si OK, [null, null] si aucun fichier, [null, erreur] sinon.
+function item_image_enregistrer(?array $fichier): array
+{
+    if (!$fichier || $fichier['error'] === UPLOAD_ERR_NO_FILE) {
+        return [null, null];
+    }
+    if ($fichier['error'] !== UPLOAD_ERR_OK) {
+        return [null, "L'envoi de l'image a échoué. Réessayez."];
+    }
+    if ($fichier['size'] > ITEM_IMAGE_MAX) {
+        return [null, "L'image est trop lourde (3 Mo maximum)."];
+    }
+
+    // On vérifie le vrai contenu du fichier, pas seulement son extension
+    $type = (new finfo(FILEINFO_MIME_TYPE))->file($fichier['tmp_name']);
+    if (!isset(ITEM_IMAGE_TYPES[$type]) || !getimagesize($fichier['tmp_name'])) {
+        return [null, "L'image doit être au format JPG, PNG ou WebP."];
+    }
+
+    // Nom aléatoire : impossible de deviner ou d'écraser un autre fichier
+    $nom = bin2hex(random_bytes(12)) . '.' . ITEM_IMAGE_TYPES[$type];
+    if (!move_uploaded_file($fichier['tmp_name'], ITEM_IMAGE_DOSSIER . $nom)) {
+        return [null, "Impossible d'enregistrer l'image sur le serveur."];
+    }
+    return [$nom, null];
+}
+
+function item_image_supprimer(?string $image): void
+{
+    // basename() empêche de sortir du dossier uploads/soins/
+    if ($image && is_file(ITEM_IMAGE_DOSSIER . basename($image))) {
+        unlink(ITEM_IMAGE_DOSSIER . basename($image));
+    }
 }
 
 function item_set_statut(PDO $pdo, int $id, string $statut): void

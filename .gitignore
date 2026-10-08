@@ -1,0 +1,3 @@
+# Images envoyées depuis l'admin (contenu, pas du code)
+/uploads/soins/*
+!/uploads/soins/.gitkeep

@@ -19,7 +19,7 @@
         </div>
     <?php endif; ?>
 
-    <form action="/admin/soins-modifier?id=<?= $id ?>" method="post">
+    <form action="/admin/soins-modifier?id=<?= $id ?>" method="post" enctype="multipart/form-data">
         <?= csrf_field() ?>
         <?php require __DIR__ . '/_soin-champs.php'; ?>
 

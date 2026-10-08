@@ -23,7 +23,7 @@
         </div>
     <?php endif; ?>
 
-    <form action="/admin/soins-ajouter" method="post">
+    <form action="/admin/soins-ajouter" method="post" enctype="multipart/form-data">
         <?= csrf_field() ?>
         <?php require __DIR__ . '/_soin-champs.php'; ?>
 

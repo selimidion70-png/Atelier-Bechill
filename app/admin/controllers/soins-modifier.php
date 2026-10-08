@@ -39,6 +39,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $erreurs[] = "Un autre soin porte déjà ce nom (ou un nom très proche).";
     }
 
+    // Image : on garde l'actuelle, sauf si une nouvelle est envoyée ou si on coche « supprimer »
+    $image         = $soin['image'];
+    $nouvelleImage = null;
+    if (empty($erreurs)) {
+        [$nouvelleImage, $erreurImage] = item_image_enregistrer($_FILES['image'] ?? null);
+        if ($erreurImage) {
+            $erreurs[] = $erreurImage;
+        } elseif ($nouvelleImage) {
+            $image = $nouvelleImage;
+        } elseif (isset($_POST['supprimer_image'])) {
+            $image = null;
+        }
+    }
+
     if (empty($erreurs)) {
         $pdo->beginTransaction();
 
@@ -48,6 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'slug'              => $slug,
             'description_courte'=> $valeurs['description_courte'],
             'description'       => $valeurs['description'],
+            'image'             => $image,
             'duree'             => (int)$valeurs['duree'],
             'prix'              => (float)$valeurs['prix'],
             'statut'            => $valeurs['statut'],
@@ -58,6 +73,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $pdo->commit();
 
+        // L'ancien fichier n'est supprimé qu'une fois la base à jour
+        if ($image !== $soin['image']) {
+            item_image_supprimer($soin['image']);
+        }
+
         redirect('/admin/soins');
     }
 }
@@ -65,6 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 echo render($base . '/views/soins-modifier.php', [
     'id'              => $id,
     'titreActuel'     => $soin['titre'],
+    'imageActuelle'   => $soin['image'],
     'erreurs'         => $erreurs,
     'valeurs'         => $valeurs,
     'categories'      => $categories,
