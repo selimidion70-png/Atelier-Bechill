@@ -46,8 +46,8 @@ if ($estAdmin) {
         $_SESSION['operator_role'] = $operator['role'];
     }
 
-    // Vérification de la session (sauf pour login)
-    if (empty($_SESSION['operator_id']) && ($segments[1] ?? '') !== 'login') {
+    // Vérification de la session (sauf pour la connexion et le mot de passe oublié)
+    if (empty($_SESSION['operator_id']) && !in_array($segments[1] ?? '', ADMIN_PAGES_PUBLIQUES, true)) {
         redirect('/admin/login');
     }
 

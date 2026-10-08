@@ -33,6 +33,8 @@ CREATE TABLE operator (
     mot_de_passe  VARCHAR(255) NOT NULL,
     role          ENUM('admin', 'editeur', 'membre') NOT NULL DEFAULT 'membre',
     actif         TINYINT(1) NOT NULL DEFAULT 1,
+    reset_jeton   CHAR(64) NULL,                    -- hash SHA-256 du lien « mot de passe oublié »
+    reset_expire  DATETIME NULL,                    -- le lien expire 1 heure après la demande
     date_creation DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
