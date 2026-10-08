@@ -93,6 +93,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'remarques'          => $valeurs['remarques'] !== '' ? $valeurs['remarques'] : null,
         ]);
 
+        reservation_envoyer_email($pdo, $id, 'recue');
+
         // Seule la personne qui vient de réserver peut payer cette réservation
         $_SESSION['reservation_a_payer'] = $id;
         redirect('/paiement');
