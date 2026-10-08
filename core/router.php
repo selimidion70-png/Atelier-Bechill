@@ -17,7 +17,8 @@ function run(string $route, string $base, PDO $pdo): string
 {
     $file = $base . '/controllers/' . $route . '.php';
 
-    if (!file_exists($file)) {
+    // Seuls les noms simples sont des routes (les fichiers "_xxx.php" sont internes)
+    if (!preg_match('/^[a-z0-9][a-z0-9-]*$/', $route) || !file_exists($file)) {
         http_response_code(404);
         return '<main><h1>Page introuvable</h1><p><a href="/">Retour à l\'accueil</a></p></main>';
     }

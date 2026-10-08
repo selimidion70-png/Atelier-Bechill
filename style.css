@@ -1975,3 +1975,21 @@ footer p {
     aspect-ratio: 16 / 9;
     margin-bottom: 1.5rem;
 }
+
+
+/* ============================================================
+   20. UTILITAIRES
+   ============================================================ */
+
+/* Texte lu par les lecteurs d'écran mais invisible à l'écran */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
