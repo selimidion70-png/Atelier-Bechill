@@ -37,9 +37,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($valeurs['category_id'] === '')        $erreurs[] = "Veuillez choisir une catégorie.";
     if ($valeurs['theme_id'] === '')           $erreurs[] = "Veuillez choisir un thème.";
 
-    if (empty($erreurs)) {
-        $slug = strtolower(preg_replace('/[^a-z0-9]+/i', '-', iconv('UTF-8', 'ASCII//TRANSLIT', $valeurs['titre'])));
+    $slug = item_slug($valeurs['titre']);
+    if (empty($erreurs) && item_slug_exists($pdo, $slug)) {
+        $erreurs[] = "Un soin avec ce nom (ou un nom très proche) existe déjà.";
+    }
 
+    if (empty($erreurs)) {
         item_insert($pdo, [
             'titre'             => $valeurs['titre'],
             'slug'              => $slug,

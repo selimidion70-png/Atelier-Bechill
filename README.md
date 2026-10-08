@@ -28,6 +28,11 @@ Atelier-Bechill/
 ├── .htaccess              ← Redirige toutes les requêtes vers index.php
 ├── style.css              ← Feuille de style globale
 │
+├── sql/
+│   └── schema.sql         ← Schéma de la base de données
+│
+├── _archives/             ← Anciennes versions (maquettes HTML, PHP avant MVC) — non accessibles
+│
 ├── config/
 │   └── database.php       ← Connexion PDO à la base de données
 │
@@ -46,24 +51,28 @@ Atelier-Bechill/
     │   ├── home.php        ← Page d'accueil
     │   ├── soins.php       ← Catalogue avec filtres
     │   ├── soin-detail.php ← Détail d'un soin
+    │   ├── tarifs.php      ← Tarifs
+    │   ├── reservation.php ← Réservation
+    │   ├── apropos.php     ← À propos
     │   └── contact.php     ← Formulaire de contact
     │
     ├── views/
     │   ├── _layout.php     ← Layout commun (header + nav + footer)
-    │   ├── home.php        ← Vue accueil
-    │   ├── soins.php       ← Vue catalogue
-    │   ├── soin-detail.php ← Vue détail soin
-    │   └── contact.php     ← Vue contact
+    │   └── …               ← Une vue par controller (même nom)
     │
     └── admin/
         ├── controllers/
-        │   ├── home.php    ← Dashboard admin
-        │   ├── login.php   ← Authentification
-        │   └── logout.php  ← Déconnexion
+        │   ├── home.php          ← Dashboard admin
+        │   ├── login.php         ← Authentification
+        │   ├── logout.php        ← Déconnexion
+        │   ├── soins.php         ← Liste des soins (publier, supprimer)
+        │   ├── soins-ajouter.php ← Ajout d'un soin
+        │   ├── soins-modifier.php← Modification d'un soin (+ tags)
+        │   └── messages.php      ← Messages reçus
         └── views/
-            ├── _layout.php ← Layout admin
-            ├── login.php   ← Vue connexion
-            └── dashboard.php ← Vue tableau de bord
+            ├── _layout.php       ← Layout admin
+            ├── dashboard.php     ← Vue tableau de bord
+            └── …                 ← Une vue par controller (même nom)
 ```
 
 ---
