@@ -99,6 +99,8 @@
             </p>
         </fieldset>
 
+        <p><small>Vos données servent uniquement à organiser votre rendez-vous et sont supprimées <?= (int)config('rgpd_conservation_reservations') ?> mois après celui-ci. <a href="/confidentialite">En savoir plus sur vos données</a></small></p>
+
         <p>
             <button type="submit">Continuer vers le paiement</button>
             <button type="reset">Réinitialiser</button>

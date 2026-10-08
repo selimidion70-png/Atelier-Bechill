@@ -33,6 +33,8 @@ return [
         'forme_juridique' => 'SRL (fictive – projet d\'école)',
         'numero_bce'      => '0000.000.000',
         'responsable'     => 'Dion Selimi',
+        // Hébergeur du site (obligatoire dans les mentions légales) : à compléter à la mise en ligne
+        'hebergeur'       => 'Site de démonstration hébergé en local (Laragon)',
     ],
 
     // Expéditeur des emails envoyés aux clients

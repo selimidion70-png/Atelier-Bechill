@@ -28,6 +28,7 @@
             <li><a href="/admin/reservations">Réservations</a></li>
             <li><a href="/admin/messages">Messages reçus</a></li>
             <li><a href="/admin/utilisateurs">Utilisateurs</a></li>
+            <li><a href="/admin/donnees-client">Données clients</a></li>
         <?php endif; ?>
         <li><a href="/admin/logout">Déconnexion</a></li>
     </ul>

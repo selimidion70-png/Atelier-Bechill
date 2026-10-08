@@ -56,6 +56,8 @@
             </p>
         </fieldset>
 
+        <p><small>Vos données servent uniquement à répondre à votre message et sont supprimées après <?= (int)config('rgpd_conservation_messages') ?> mois. <a href="/confidentialite">En savoir plus sur vos données</a></small></p>
+
         <p>
             <button type="submit">Envoyer</button>
             <button type="reset">Effacer</button>
