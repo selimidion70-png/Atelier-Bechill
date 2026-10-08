@@ -112,6 +112,9 @@ CREATE TABLE reservation (
     preference_contact ENUM('email', 'telephone') NOT NULL DEFAULT 'email',
     remarques          TEXT NULL,
     statut             ENUM('en_attente', 'confirmee', 'annulee') NOT NULL DEFAULT 'en_attente',
+    montant            DECIMAL(6,2) NOT NULL,             -- prix du soin au moment de la réservation
+    paiement           ENUM('non_payee', 'payee') NOT NULL DEFAULT 'non_payee',
+    date_paiement      DATETIME NULL,                     -- paiement simulé (démonstration)
     date_envoi         DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT fk_reservation_item FOREIGN KEY (item_id) REFERENCES item(id) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

@@ -33,6 +33,7 @@
                     <th scope="col">Soin</th>
                     <th scope="col">Remarques</th>
                     <th scope="col">Statut</th>
+                    <th scope="col">Paiement</th>
                     <th scope="col">Actions</th>
                 </tr>
             </thead>
@@ -51,6 +52,14 @@
                         <td><?= $r['soin'] !== null ? htmlspecialchars($r['soin']) . ' – ' . (int)$r['duree'] . ' min' : '<em>Soin supprimé</em>' ?></td>
                         <td><?= $r['remarques'] !== null ? nl2br(htmlspecialchars($r['remarques'])) : '' ?></td>
                         <td><?= $statuts[$r['statut']] ?></td>
+                        <td>
+                            <?= number_format((float)$r['montant'], 2, ',', ' ') ?> €<br>
+                            <?php if ($r['paiement'] === 'payee'): ?>
+                                Payée le <?= date('d/m/Y', strtotime($r['date_paiement'])) ?>
+                            <?php else: ?>
+                                Non payée
+                            <?php endif; ?>
+                        </td>
                         <td>
                             <?php foreach (['confirmee' => 'Confirmer', 'annulee' => 'Annuler', 'en_attente' => 'Remettre en attente'] as $nouveau => $bouton): ?>
                                 <?php if ($r['statut'] !== $nouveau): ?>
