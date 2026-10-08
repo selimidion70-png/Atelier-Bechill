@@ -26,13 +26,14 @@
 
     <?php if ($etape === 'choix'): ?>
         <section aria-labelledby="moyens-paiement">
-            <h2 id="moyens-paiement">Cartes acceptées</h2>
+            <h2 id="moyens-paiement">Moyens de paiement acceptés</h2>
             <ul class="paiement__cartes">
                 <li>Bancontact</li>
                 <li>Visa</li>
                 <li>Mastercard</li>
                 <li>Maestro</li>
-                <li>American Express</li>
+                <li>Revolut</li>
+                <li>Apple Pay</li>
             </ul>
 
             <p class="paiement__demo" role="note">
