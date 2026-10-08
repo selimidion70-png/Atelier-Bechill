@@ -63,6 +63,7 @@
                         <td><?= $msg['lu'] ? 'Oui' : 'Non' ?></td>
                         <td>
                             <form action="/admin/messages" method="post" style="display:inline">
+                                <?= csrf_field() ?>
                                 <input type="hidden" name="lu_id" value="<?= $msg['id'] ?>">
                                 <?php if ($msg['lu']): ?>
                                     <input type="hidden" name="lu" value="0">
@@ -74,6 +75,7 @@
                             </form>
                             <form action="/admin/messages" method="post" style="display:inline"
                                   onsubmit="return confirm('Supprimer ce message ?')">
+                                <?= csrf_field() ?>
                                 <input type="hidden" name="supprimer_id" value="<?= $msg['id'] ?>">
                                 <button type="submit">Supprimer</button>
                             </form>

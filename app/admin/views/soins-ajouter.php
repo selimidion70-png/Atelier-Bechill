@@ -24,6 +24,7 @@
     <?php endif; ?>
 
     <form action="/admin/soins-ajouter" method="post">
+        <?= csrf_field() ?>
         <fieldset>
             <legend>Informations générales</legend>
             <p>

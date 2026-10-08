@@ -20,6 +20,7 @@
     <ul>
         <li><a href="/admin">Tableau de bord</a></li>
         <li><a href="/admin/soins">Gérer les soins</a></li>
+        <li><a href="/admin/reservations">Réservations</a></li>
         <li><a href="/admin/messages">Messages reçus</a></li>
         <li><a href="/admin/logout">Déconnexion</a></li>
     </ul>

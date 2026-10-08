@@ -6,6 +6,7 @@
     <?php endif; ?>
 
     <form action="/admin/login" method="post">
+        <?= csrf_field() ?>
         <fieldset>
             <legend>Identifiants de connexion</legend>
             <p>

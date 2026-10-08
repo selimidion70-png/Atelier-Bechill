@@ -2,45 +2,35 @@
     <h1>Nos tarifs</h1>
     <p>Retrouvez ci-dessous les tarifs de l'ensemble de nos soins. Tous les prix sont indiqués TTC.</p>
 
-    <section aria-labelledby="tarifs-classiques">
-        <h2 id="tarifs-classiques">Massages classiques</h2>
-        <table>
-            <caption>Tarifs des massages classiques</caption>
-            <thead>
-                <tr>
-                    <th scope="col">Soin</th>
-                    <th scope="col">Durée</th>
-                    <th scope="col">Prix</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr><td>Massage relaxant</td><td>60 min</td><td>65 €</td></tr>
-                <tr><td>Massage suédois</td><td>60 min</td><td>70 €</td></tr>
-                <tr><td>Massage suédois</td><td>90 min</td><td>95 €</td></tr>
-                <tr><td>Massage aux pierres chaudes</td><td>75 min</td><td>85 €</td></tr>
-            </tbody>
-        </table>
-    </section>
+    <?php if (empty($soinsParCategorie)): ?>
+        <p role="status">Aucun soin disponible pour le moment.</p>
+    <?php endif; ?>
 
-    <section aria-labelledby="tarifs-specifiques">
-        <h2 id="tarifs-specifiques">Massages spécifiques</h2>
-        <table>
-            <caption>Tarifs des massages spécifiques</caption>
-            <thead>
-                <tr>
-                    <th scope="col">Soin</th>
-                    <th scope="col">Durée</th>
-                    <th scope="col">Prix</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr><td>Massage sportif</td><td>60 min</td><td>70 €</td></tr>
-                <tr><td>Massage sportif</td><td>90 min</td><td>95 €</td></tr>
-                <tr><td>Massage dos et nuque</td><td>30 min</td><td>40 €</td></tr>
-                <tr><td>Réflexologie plantaire</td><td>45 min</td><td>55 €</td></tr>
-            </tbody>
-        </table>
-    </section>
+    <?php foreach ($soinsParCategorie as $categorie => $soins): ?>
+        <?php $idSection = 'tarifs-' . item_slug($categorie); ?>
+        <section aria-labelledby="<?= $idSection ?>">
+            <h2 id="<?= $idSection ?>"><?= htmlspecialchars($categorie) ?></h2>
+            <table>
+                <caption>Tarifs – <?= htmlspecialchars($categorie) ?></caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Soin</th>
+                        <th scope="col">Durée</th>
+                        <th scope="col">Prix</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($soins as $soin): ?>
+                        <tr>
+                            <td><a href="/soin-detail?slug=<?= urlencode($soin['slug']) ?>"><?= htmlspecialchars($soin['titre']) ?></a></td>
+                            <td><?= (int)$soin['duree'] ?> min</td>
+                            <td><?= number_format((float)$soin['prix'], 2, ',', ' ') ?> €</td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </section>
+    <?php endforeach; ?>
 
     <section aria-labelledby="formules">
         <h2 id="formules">Formules et abonnements</h2>

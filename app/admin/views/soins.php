@@ -29,6 +29,7 @@
                             <a href="/admin/soins-modifier?id=<?= $soin['id'] ?>">Modifier</a>
 
                             <form action="/admin/soins" method="post" style="display:inline">
+                                <?= csrf_field() ?>
                                 <input type="hidden" name="statut_id" value="<?= $soin['id'] ?>">
                                 <?php if ($soin['statut'] === 'publie'): ?>
                                     <input type="hidden" name="statut" value="brouillon">
@@ -41,6 +42,7 @@
 
                             <form action="/admin/soins" method="post" style="display:inline"
                                   onsubmit="return confirm('Supprimer ce soin définitivement ?')">
+                                <?= csrf_field() ?>
                                 <input type="hidden" name="supprimer_id" value="<?= $soin['id'] ?>">
                                 <button type="submit">Supprimer</button>
                             </form>

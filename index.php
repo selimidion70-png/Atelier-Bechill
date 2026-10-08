@@ -8,6 +8,7 @@ require 'core/http.php';
 require 'core/router.php';
 require 'core/html.php';
 require 'core/query.php';
+require 'core/csrf.php';
 
 require 'config/database.php';
 
@@ -31,8 +32,13 @@ if (isset($segments[0]) && $segments[0] === 'admin') {
 // Détermination de la route
 $route = route($segments);
 
-// Exécution du controller
-$main = run($route, $base, $pdo);
+// Exécution du controller (tout formulaire POST doit avoir un jeton CSRF valide)
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !csrf_check()) {
+    http_response_code(403);
+    $main = '<main><h1>Formulaire expiré</h1><p>Veuillez recharger la page et renvoyer le formulaire.</p></main>';
+} else {
+    $main = run($route, $base, $pdo);
+}
 
 // Rendu dans le layout
 $body = render($base . '/views/_layout.php', [
