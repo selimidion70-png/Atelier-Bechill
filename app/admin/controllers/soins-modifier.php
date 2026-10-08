@@ -28,26 +28,8 @@ $valeurs = [
 ];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $valeurs = [
-        'titre'             => trim($_POST['titre'] ?? ''),
-        'description_courte'=> trim($_POST['description_courte'] ?? ''),
-        'description'       => trim($_POST['description'] ?? ''),
-        'duree'             => trim($_POST['duree'] ?? ''),
-        'prix'              => trim($_POST['prix'] ?? ''),
-        'statut'            => $_POST['statut'] ?? 'brouillon',
-        'category_id'       => $_POST['category_id'] ?? '',
-        'theme_id'          => $_POST['theme_id'] ?? '',
-        'tags'              => (array)($_POST['tags'] ?? []),
-    ];
-
-    if ($valeurs['titre'] === '')              $erreurs[] = "Le titre est obligatoire.";
-    if ($valeurs['description_courte'] === '') $erreurs[] = "La description courte est obligatoire.";
-    if ($valeurs['description'] === '')        $erreurs[] = "La description complète est obligatoire.";
-    if (!is_numeric($valeurs['duree']) || (int)$valeurs['duree'] <= 0) $erreurs[] = "La durée doit être un nombre positif.";
-    if (!is_numeric($valeurs['prix'])  || (float)$valeurs['prix'] <= 0) $erreurs[] = "Le prix doit être un nombre positif.";
-    if ($valeurs['category_id'] === '')        $erreurs[] = "Veuillez choisir une catégorie.";
-    if ($valeurs['theme_id'] === '')           $erreurs[] = "Veuillez choisir un thème.";
-    if (!in_array($valeurs['statut'], ['brouillon', 'publie', 'archive'], true)) $erreurs[] = "Statut invalide.";
+    $valeurs = item_form_lire($_POST);
+    $erreurs = item_form_erreurs($valeurs);
 
     // Le slug (adresse de la page) ne change que si le titre change
     $slug = $valeurs['titre'] === $soin['titre'] ? $soin['slug'] : item_slug($valeurs['titre']);
