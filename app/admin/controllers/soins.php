@@ -8,7 +8,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['supprimer_id'])) {
 }
 
 // Changer le statut
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['statut_id'], $_POST['statut'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['statut_id'], $_POST['statut'])
+    && in_array($_POST['statut'], ['brouillon', 'publie', 'archive'], true)) {
     item_set_statut($pdo, (int)$_POST['statut_id'], $_POST['statut']);
     redirect('/admin/soins');
 }

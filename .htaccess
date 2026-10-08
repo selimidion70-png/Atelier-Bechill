@@ -1,5 +1,9 @@
 RewriteEngine On
 
+# Bloque l'accès direct aux fichiers internes (code, config, BDD, git, archives)
+RewriteRule ^(\.git|app|core|config|sql|_archives)(/|$) - [F,L]
+RewriteRule (^|/)\.|\.(md|sql|zip)$ - [F,L]
+
 RewriteCond %{REQUEST_FILENAME} !-f
 
 RewriteRule ^ index.php [L]

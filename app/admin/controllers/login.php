@@ -1,6 +1,11 @@
 <?php
 // app/admin/controllers/login.php
 
+// Déjà connecté : pas besoin de revoir le formulaire
+if (!empty($_SESSION['operator_id'])) {
+    redirect('/admin');
+}
+
 $erreur = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -19,7 +24,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } elseif ($operator['role'] !== 'admin') {
             $erreur = "Accès non autorisé.";
         } else {
-            $_SESSION['operator_id']   = $operator['id'];
+            // Nouvel identifiant de session à la connexion (protection contre le vol de session)
+            session_regenerate_id(true);
+            $_SESSION['operator_id']  = $operator['id'];
             $_SESSION['operator_nom']  = $operator['nom'];
             $_SESSION['operator_role'] = $operator['role'];
             redirect('/admin');
