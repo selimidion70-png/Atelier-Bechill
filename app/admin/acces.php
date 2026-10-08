@@ -10,7 +10,7 @@ const ADMIN_ROLES = ['admin' => 'Administrateur', 'editeur' => 'Éditeur'];
 const ADMIN_PAGES_PUBLIQUES = ['login', 'mot-de-passe-oublie', 'reinitialiser'];
 
 // Pages réservées à l'administrateur (données des clients et gestion des comptes)
-const ADMIN_PAGES_ADMIN_SEULEMENT = ['reservations', 'messages', 'utilisateurs'];
+const ADMIN_PAGES_ADMIN_SEULEMENT = ['reservations', 'messages', 'utilisateurs', 'donnees-client'];
 
 function admin_peut(string $role, string $route): bool
 {
