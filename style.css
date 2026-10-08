@@ -1955,3 +1955,23 @@ footer p {
     flex-wrap: wrap;
     gap: 0.75rem;
 }
+
+
+/* ============================================================
+   19. PHOTOS DES SOINS
+   ============================================================ */
+
+.soin-photo {
+    display: block;
+    width: 100%;
+    max-width: 360px;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.soin-photo--grande {
+    max-width: 720px;
+    aspect-ratio: 16 / 9;
+    margin-bottom: 1.5rem;
+}

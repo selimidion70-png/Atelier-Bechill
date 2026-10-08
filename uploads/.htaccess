@@ -1,0 +1,9 @@
+# Dossier des images envoyées depuis l'admin : seules les images sont servies,
+# aucun script ne peut y être exécuté.
+Options -Indexes
+<FilesMatch "\.(?i:jpe?g|png|webp)$">
+    Require all granted
+</FilesMatch>
+<FilesMatch "^(?!.*\.(?i:jpe?g|png|webp)$)">
+    Require all denied
+</FilesMatch>

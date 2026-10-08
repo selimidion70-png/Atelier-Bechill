@@ -20,6 +20,23 @@
         </fieldset>
 
         <fieldset>
+            <legend>Photo</legend>
+            <?php if (!empty($imageActuelle)): ?>
+                <p>
+                    <img src="<?= item_image_url($imageActuelle) ?>" alt="Photo actuelle du soin" width="240">
+                </p>
+                <p>
+                    <input type="checkbox" id="supprimer_image" name="supprimer_image" value="1">
+                    <label for="supprimer_image">Supprimer la photo actuelle</label>
+                </p>
+            <?php endif; ?>
+            <p>
+                <label for="image"><?= empty($imageActuelle) ? 'Ajouter une photo' : 'Remplacer par une nouvelle photo' ?> (JPG, PNG ou WebP, 3 Mo max.)</label>
+                <input type="file" id="image" name="image" accept="image/jpeg,image/png,image/webp">
+            </p>
+        </fieldset>
+
+        <fieldset>
             <legend>Détails pratiques</legend>
             <p>
                 <label for="duree">Durée (en minutes)</label>

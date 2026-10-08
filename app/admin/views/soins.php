@@ -9,6 +9,7 @@
             <caption>Liste de tous les soins</caption>
             <thead>
                 <tr>
+                    <th scope="col">Photo</th>
                     <th scope="col">Titre</th>
                     <th scope="col">Catégorie</th>
                     <th scope="col">Durée</th>
@@ -20,6 +21,7 @@
             <tbody>
                 <?php foreach ($soins as $soin): ?>
                     <tr>
+                        <td><?php if ($soin['image']): ?><img src="<?= item_image_url($soin['image']) ?>" alt="" width="60"><?php else: ?>—<?php endif; ?></td>
                         <td><?= htmlspecialchars($soin['titre']) ?></td>
                         <td><?= htmlspecialchars($soin['categorie']) ?></td>
                         <td><?= (int)$soin['duree'] ?> min</td>

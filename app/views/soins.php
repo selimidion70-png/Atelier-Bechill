@@ -68,12 +68,15 @@
                 <h2 id="cat-<?= md5($nomCategorie) ?>"><?= htmlspecialchars($nomCategorie) ?></h2>
                 <?php foreach ($soinsCategorie as $soin): ?>
                     <article>
+                        <?php if ($soin['image']): ?>
+                            <img class="soin-photo" src="<?= item_image_url($soin['image']) ?>" alt="" loading="lazy">
+                        <?php endif; ?>
                         <h3><?= htmlspecialchars($soin['titre']) ?></h3>
                         <p><strong>Durée :</strong> <?= (int)$soin['duree'] ?> min</p>
                         <p><strong>Prix :</strong> <?= number_format((float)$soin['prix'], 2, ',', ' ') ?> €</p>
                         <p><?= htmlspecialchars($soin['description_courte']) ?></p>
                         <p><a href="/soin-detail?slug=<?= urlencode($soin['slug']) ?>">Voir le détail</a></p>
-                        <p><a href="/reservation">Réserver</a></p>
+                        <p><a href="/reservation?soin=<?= (int)$soin['id'] ?>">Réserver</a></p>
                     </article>
                 <?php endforeach; ?>
             </section>
