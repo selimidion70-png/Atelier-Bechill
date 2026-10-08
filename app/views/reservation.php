@@ -70,6 +70,7 @@
                     <?php endforeach; ?>
                 </select>
             </p>
+            <p id="creneaux-info" role="status"></p>
         </fieldset>
 
         <fieldset>
@@ -104,3 +105,39 @@
         </p>
     </form>
 </main>
+
+<script>
+// Grise les heures déjà prises pour la date et le soin choisis
+// (le serveur revérifie de toute façon à l'envoi du formulaire)
+(function () {
+    const soin  = document.getElementById('soin');
+    const date  = document.getElementById('date');
+    const heure = document.getElementById('heure');
+    const info  = document.getElementById('creneaux-info');
+
+    async function majCreneaux() {
+        if (!date.value || !soin.value) return;
+
+        const rep = await fetch('/reservation?creneaux=1&date=' + encodeURIComponent(date.value)
+                                + '&soin=' + encodeURIComponent(soin.value));
+        if (!rep.ok) return;
+        const data = await rep.json();
+
+        for (const option of heure.options) {
+            if (!option.value) continue;
+            const libre = data.disponibles.includes(option.value);
+            option.disabled    = !libre;
+            option.textContent = option.value.replace(':', 'h') + (libre ? '' : ' (indisponible)');
+        }
+        if (heure.selectedOptions[0] && heure.selectedOptions[0].disabled) heure.value = '';
+
+        info.textContent = data.ferme ? 'Le salon est fermé ce jour-là.'
+            : data.disponibles.length === 0 ? 'Plus aucun créneau libre ce jour-là pour ce soin.'
+            : '';
+    }
+
+    soin.addEventListener('change', majCreneaux);
+    date.addEventListener('change', majCreneaux);
+    majCreneaux();
+})();
+</script>
