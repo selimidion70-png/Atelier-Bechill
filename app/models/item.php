@@ -119,6 +119,39 @@ function item_slug_exists(PDO $pdo, string $slug, int $exclude_id = 0): bool
     ]);
 }
 
+const ITEM_STATUTS = ['brouillon', 'publie', 'archive'];
+
+// Lit les champs du formulaire « soin » (ajout / modification)
+function item_form_lire(array $post): array
+{
+    return [
+        'titre'             => trim($post['titre'] ?? ''),
+        'description_courte'=> trim($post['description_courte'] ?? ''),
+        'description'       => trim($post['description'] ?? ''),
+        'duree'             => trim($post['duree'] ?? ''),
+        'prix'              => trim($post['prix'] ?? ''),
+        'statut'            => $post['statut'] ?? 'brouillon',
+        'category_id'       => $post['category_id'] ?? '',
+        'theme_id'          => $post['theme_id'] ?? '',
+        'tags'              => array_map('intval', (array)($post['tags'] ?? [])),
+    ];
+}
+
+// Vérifie les champs du formulaire « soin », retourne la liste des erreurs
+function item_form_erreurs(array $v): array
+{
+    $erreurs = [];
+    if ($v['titre'] === '')              $erreurs[] = "Le titre est obligatoire.";
+    if ($v['description_courte'] === '') $erreurs[] = "La description courte est obligatoire.";
+    if ($v['description'] === '')        $erreurs[] = "La description complète est obligatoire.";
+    if (!is_numeric($v['duree']) || (int)$v['duree'] <= 0) $erreurs[] = "La durée doit être un nombre positif.";
+    if (!is_numeric($v['prix'])  || (float)$v['prix'] <= 0) $erreurs[] = "Le prix doit être un nombre positif.";
+    if ($v['category_id'] === '')        $erreurs[] = "Veuillez choisir une catégorie.";
+    if ($v['theme_id'] === '')           $erreurs[] = "Veuillez choisir un thème.";
+    if (!in_array($v['statut'], ITEM_STATUTS, true)) $erreurs[] = "Statut invalide.";
+    return $erreurs;
+}
+
 function item_get_by_id(PDO $pdo, int $id): array|false
 {
     return query_one($pdo, "SELECT * FROM item WHERE id = :id", ['id' => $id]);

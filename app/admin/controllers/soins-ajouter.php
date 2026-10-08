@@ -3,39 +3,15 @@ require_once __DIR__ . '/../../models/item.php';
 
 $erreurs = [];
 $succes  = false;
-$valeurs = [
-    'titre'             => '',
-    'description_courte'=> '',
-    'description'       => '',
-    'duree'             => '',
-    'prix'              => '',
-    'statut'            => 'brouillon',
-    'category_id'       => '',
-    'theme_id'          => '',
-];
+$valeurs = item_form_lire([]);
 
-$categories = query_all($pdo, "SELECT id, nom FROM category ORDER BY nom");
-$themes     = query_all($pdo, "SELECT id, nom FROM theme ORDER BY nom");
+$categories      = query_all($pdo, "SELECT id, nom FROM category ORDER BY nom");
+$themes          = query_all($pdo, "SELECT id, nom FROM theme ORDER BY nom");
+$tagsDisponibles = query_all($pdo, "SELECT id, nom FROM tag ORDER BY nom");
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $valeurs = [
-        'titre'             => trim($_POST['titre'] ?? ''),
-        'description_courte'=> trim($_POST['description_courte'] ?? ''),
-        'description'       => trim($_POST['description'] ?? ''),
-        'duree'             => trim($_POST['duree'] ?? ''),
-        'prix'              => trim($_POST['prix'] ?? ''),
-        'statut'            => $_POST['statut'] ?? 'brouillon',
-        'category_id'       => $_POST['category_id'] ?? '',
-        'theme_id'          => $_POST['theme_id'] ?? '',
-    ];
-
-    if ($valeurs['titre'] === '')              $erreurs[] = "Le titre est obligatoire.";
-    if ($valeurs['description_courte'] === '') $erreurs[] = "La description courte est obligatoire.";
-    if ($valeurs['description'] === '')        $erreurs[] = "La description complète est obligatoire.";
-    if (!is_numeric($valeurs['duree']) || (int)$valeurs['duree'] <= 0) $erreurs[] = "La durée doit être un nombre positif.";
-    if (!is_numeric($valeurs['prix'])  || (float)$valeurs['prix'] <= 0) $erreurs[] = "Le prix doit être un nombre positif.";
-    if ($valeurs['category_id'] === '')        $erreurs[] = "Veuillez choisir une catégorie.";
-    if ($valeurs['theme_id'] === '')           $erreurs[] = "Veuillez choisir un thème.";
+    $valeurs = item_form_lire($_POST);
+    $erreurs = item_form_erreurs($valeurs);
 
     $slug = item_slug($valeurs['titre']);
     if (empty($erreurs) && item_slug_exists($pdo, $slug)) {
@@ -43,7 +19,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (empty($erreurs)) {
-        item_insert($pdo, [
+        $pdo->beginTransaction();
+
+        $id = item_insert($pdo, [
             'titre'             => $valeurs['titre'],
             'slug'              => $slug,
             'description_courte'=> $valeurs['description_courte'],
@@ -55,18 +33,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'theme_id'          => (int)$valeurs['theme_id'],
             'category_id'       => (int)$valeurs['category_id'],
         ]);
+        item_tags_sync($pdo, $id, $valeurs['tags']);
 
-        $succes = true;
-        $valeurs = array_fill_keys(array_keys($valeurs), '');
-        $valeurs['statut'] = 'brouillon';
+        $pdo->commit();
+
+        $succes  = true;
+        $valeurs = item_form_lire([]);
     }
 }
 
 echo render($base . '/views/soins-ajouter.php', [
-    'erreurs'    => $erreurs,
-    'succes'     => $succes,
-    'valeurs'    => $valeurs,
-    'categories' => $categories,
-    'themes'     => $themes,
-    'pageTitle'  => 'Ajouter un soin – Admin',
+    'erreurs'         => $erreurs,
+    'succes'          => $succes,
+    'valeurs'         => $valeurs,
+    'categories'      => $categories,
+    'themes'          => $themes,
+    'tagsDisponibles' => $tagsDisponibles,
+    'pageTitle'       => 'Ajouter un soin – Admin',
 ]);
