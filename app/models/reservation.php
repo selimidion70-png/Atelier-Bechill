@@ -5,6 +5,60 @@
 const RESERVATION_HEURES  = ['09:00', '10:00', '11:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00'];
 const RESERVATION_STATUTS = ['en_attente' => 'En attente', 'confirmee' => 'Confirmée', 'annulee' => 'Annulée'];
 
+// Horaires d'ouverture par jour (1 = lundi … 7 = dimanche), null = fermé
+const RESERVATION_OUVERTURE = [
+    1 => ['09:00', '19:00'], 2 => ['09:00', '19:00'], 3 => ['09:00', '19:00'],
+    4 => ['09:00', '19:00'], 5 => ['09:00', '19:00'], 6 => ['10:00', '17:00'], 7 => null,
+];
+
+// Convertit "HH:MM" ou "HH:MM:SS" en minutes depuis minuit
+function reservation_minutes(string $heure): int
+{
+    [$h, $m] = explode(':', $heure);
+    return (int)$h * 60 + (int)$m;
+}
+
+// Heures de début encore libres pour un soin de $duree minutes à la date donnée.
+// Un créneau est pris si un rendez-vous non annulé le chevauche (en tenant compte des durées),
+// ou si le soin finirait après la fermeture.
+function reservation_heures_disponibles(PDO $pdo, string $date, int $duree): array
+{
+    $horaires = RESERVATION_OUVERTURE[(int)date('N', strtotime($date))];
+    if ($horaires === null) {
+        return [];
+    }
+    [$ouverture, $fermeture] = array_map('reservation_minutes', $horaires);
+
+    // Rendez-vous déjà pris ce jour-là (60 min par défaut si le soin a été supprimé)
+    $occupes = query_all($pdo, "
+        SELECT reservation.heure_rdv, COALESCE(item.duree, 60) AS duree
+        FROM reservation
+        LEFT JOIN item ON reservation.item_id = item.id
+        WHERE reservation.date_rdv = :date AND reservation.statut != 'annulee'
+    ", ['date' => $date]);
+
+    $libres = [];
+    foreach (RESERVATION_HEURES as $heure) {
+        $debut = reservation_minutes($heure);
+        $fin   = $debut + $duree;
+        if ($debut < $ouverture || $fin > $fermeture) {
+            continue;
+        }
+        // Aujourd'hui : pas de créneau déjà passé
+        if ($date === date('Y-m-d') && $debut <= reservation_minutes(date('H:i'))) {
+            continue;
+        }
+        foreach ($occupes as $o) {
+            $oDebut = reservation_minutes($o['heure_rdv']);
+            if ($debut < $oDebut + (int)$o['duree'] && $oDebut < $fin) {
+                continue 2;
+            }
+        }
+        $libres[] = $heure;
+    }
+    return $libres;
+}
+
 // Le montant est copié depuis le prix du soin, pour ne pas changer si le prix change plus tard
 function reservation_insert(PDO $pdo, array $data): int
 {
