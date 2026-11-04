@@ -13,7 +13,7 @@ Site web dynamique pour un salon de massage fictif, développé dans le cadre du
 - Fiche détaillée de chaque soin, avec photo
 - Page tarifs générée depuis la base de données
 - Réservation en ligne : les créneaux déjà pris et les horaires d'ouverture sont respectés
-- Paiement en ligne avec **Mollie** (Bancontact, cartes, Apple Pay…) ou paiement sur place ; sans clé Mollie, le paiement est **simulé** (démonstration)
+- Paiement en ligne avec **Stripe** (Bancontact, cartes, Apple Pay…) ou paiement sur place ; sans clé Stripe, le paiement est **simulé** (démonstration)
 - Pages **Mentions légales** et **Politique de confidentialité** (RGPD)
 - Emails de confirmation au client
 - Sélections de soins (collections) sur la page d'accueil
@@ -50,7 +50,7 @@ Atelier-Bechill/
 ├── style.css              ← Feuille de style globale
 │
 ├── config/
-│   ├── app.php            ← TOUS les réglages : salon, URL, base, emails, Mollie, RGPD
+│   ├── app.php            ← TOUS les réglages : salon, URL, base, emails, Stripe, RGPD
 │   ├── app.local.exemple.php ← Modèle pour app.local.php (secrets, ignoré par git)
 │   └── database.php       ← Connexion PDO à la base de données
 │
@@ -62,7 +62,7 @@ Atelier-Bechill/
 │   ├── csrf.php           ← Jeton CSRF des formulaires POST
 │   ├── config.php         ← Lecture des réglages : config('…'), salon('…')
 │   ├── mail.php           ← Envoi d'emails (UTF-8)
-│   └── mollie.php         ← Paiement en ligne (API Mollie)
+│   └── stripe.php         ← Paiement en ligne (API Stripe Checkout)
 │
 ├── app/
 │   ├── models/
@@ -125,7 +125,7 @@ C:\laragon\www\Atelier-Bechill\
 
 Tous les réglages sont dans **`config/app.php`** : coordonnées du salon, adresse du site, base de données, expéditeur des emails, durées RGPD. Les valeurs par défaut fonctionnent directement avec Laragon.
 
-Les valeurs **secrètes** (clé Mollie, mot de passe de la base en ligne) vont dans **`config/app.local.php`** : copiez `config/app.local.exemple.php` et remplissez-le. Ce fichier est ignoré par git, il ne part jamais sur GitHub.
+Les valeurs **secrètes** (clé Stripe, mot de passe de la base en ligne) vont dans **`config/app.local.php`** : copiez `config/app.local.exemple.php` et remplissez-le. Ce fichier est ignoré par git, il ne part jamais sur GitHub.
 
 ### 5. Lancer le site
 
@@ -199,7 +199,7 @@ http://localhost:8025
 | `item_tag` | Liaison soins ↔ tags |
 | `collection` | Sélections de soins créées dans l'admin |
 | `collection_item` | Liaison collections ↔ soins |
-| `reservation` | Demandes de réservation (créneau, statut, montant, paiement, identifiant Mollie) |
+| `reservation` | Demandes de réservation (créneau, statut, montant, paiement, identifiant du paiement Stripe) |
 | `message` | Messages envoyés via le formulaire de contact |
 
 ---
@@ -215,22 +215,33 @@ http://localhost:8025
 - En production : erreurs PHP masquées aux visiteurs
 - Photos : type réel vérifié, 3 Mo max, nom de fichier aléatoire, aucun script exécutable dans `uploads/`
 - Accès direct bloqué à `app/`, `core/`, `config/`, `sql/`, `.git/`, `_archives/`
-- Paiement : les données de carte sont saisies chez Mollie, jamais sur le site ; le statut est toujours revérifié auprès de Mollie
+- Paiement : les données de carte sont saisies chez Stripe, jamais sur le site ; les notifications de Stripe sont vérifiées par signature et le statut est toujours revérifié auprès de Stripe
 
 ---
 
-## 💳 Activer le paiement Mollie
+## 💳 Activer le paiement Stripe
 
-1. Créer un compte gratuit sur [mollie.com](https://www.mollie.com)
-2. Tableau de bord Mollie → **Développeurs → Clés API** : copier la clé **test** (`test_…`)
+1. Créer un compte gratuit sur [stripe.com](https://stripe.com)
+2. Tableau de bord Stripe → **Développeurs → Clés API** : copier la **clé secrète de test** (`sk_test_…`)
 3. Copier `config/app.local.exemple.php` en `config/app.local.php` et y coller la clé :
    ```php
-   'mollie_cle' => 'test_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+   'stripe_cle' => 'COLLER_ICI_VOTRE_CLE_SK_TEST',
    ```
-4. Faire une réservation : le bouton « Payer » envoie sur la page de paiement Mollie (mode test : aucun vrai argent)
+4. Faire une réservation : le bouton « Payer » envoie sur la page de paiement Stripe (mode test : aucun vrai argent, carte de test `4242 4242 4242 4242`, date future, CVC au choix)
 
-En local, Mollie ne peut pas prévenir le site (webhook) : le statut est vérifié quand le client revient sur le site. Une fois en ligne en `https`, le webhook est activé automatiquement.
-Pour encaisser pour de vrai : faire valider le compte par Mollie, puis remplacer la clé par la clé `live_…`. Apple Pay demande en plus de valider le nom de domaine dans le tableau de bord Mollie.
+Les moyens de paiement proposés (Bancontact, Visa, Mastercard, Apple Pay…) s'activent dans **Paramètres → Moyens de paiement** du tableau de bord Stripe : rien à changer dans le code.
+
+En local, Stripe ne peut pas prévenir le site (webhook) : le statut est vérifié quand le client revient sur le site. Une fois en ligne en `https` :
+1. Tableau de bord Stripe → **Développeurs → Webhooks → Ajouter un endpoint** : adresse `https://www.nom-du-salon.be/paiement-webhook`, événements `checkout.session.completed` et `checkout.session.async_payment_succeeded`
+2. Copier le **secret de signature** (`whsec_…`) dans `config/app.local.php` : `'stripe_webhook_secret' => 'whsec_…'`
+
+Pour encaisser pour de vrai : activer le compte Stripe (informations de l'entreprise et compte bancaire), puis remplacer la clé par la clé `sk_live_…` (et refaire le webhook en mode live). Apple Pay demande en plus de valider le nom de domaine dans le tableau de bord Stripe.
+
+**Base créée avant le passage à Stripe** : renommer la colonne une fois :
+```sql
+ALTER TABLE reservation CHANGE mollie_id paiement_id VARCHAR(255) NULL,
+    RENAME INDEX idx_reservation_mollie TO idx_reservation_paiement;
+```
 
 ---
 
@@ -245,7 +256,8 @@ Pour encaisser pour de vrai : faire valider le compte par Mollie, puis remplacer
        'environnement' => 'production',
        'url_site'      => 'https://www.nom-du-salon.be',
        'base_de_donnees' => ['hote' => '…', 'nom' => '…', 'utilisateur' => '…', 'mot_de_passe' => '…'],
-       'mollie_cle'    => 'live_…',
+       'stripe_cle'    => 'sk_live_…',
+       'stripe_webhook_secret' => 'whsec_…',
    ];
    ```
 5. **`config/app.php`** : coordonnées réelles du salon, forme juridique, numéro BCE, hébergeur, adresse d'expéditeur des emails (sur le domaine du salon)

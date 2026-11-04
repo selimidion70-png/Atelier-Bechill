@@ -2,5 +2,5 @@
 /uploads/soins/*
 !/uploads/soins/.gitkeep
 
-# Réglages secrets (clé Mollie, mot de passe de la base en ligne…)
+# Réglages secrets (clé Stripe, mot de passe de la base en ligne…)
 /config/app.local.php

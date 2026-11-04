@@ -3,7 +3,7 @@
 // à adapter si le site change, et à faire relire par le client avant la mise en ligne.
 $moisReservations = (int)config('rgpd_conservation_reservations');
 $moisMessages     = (int)config('rgpd_conservation_messages');
-$paiementEnLigne  = config('mollie_cle') !== '';
+$paiementEnLigne  = stripe_actif();
 ?>
 <main>
     <h1>Politique de confidentialité</h1>
@@ -52,7 +52,7 @@ $paiementEnLigne  = config('mollie_cle') !== '';
         <ul>
             <li>Uniquement l'équipe de <?= htmlspecialchars(salon('nom')) ?> qui gère les réservations et les messages.</li>
             <?php if ($paiementEnLigne): ?>
-                <li>En cas de paiement en ligne : notre prestataire de paiement <strong>Mollie B.V.</strong> (Pays-Bas). Vos données de carte sont saisies chez Mollie et ne passent jamais par notre site.</li>
+                <li>En cas de paiement en ligne : notre prestataire de paiement <strong>Stripe Payments Europe Ltd.</strong> (Irlande). Vos données de carte sont saisies chez Stripe et ne passent jamais par notre site.</li>
             <?php else: ?>
                 <li>Le paiement en ligne de ce site est une démonstration : aucune donnée de carte n'est demandée.</li>
             <?php endif; ?>

@@ -43,8 +43,8 @@
                 <li>Apple Pay</li>
             </ul>
 
-            <?php if (mollie_actif()): ?>
-                <p>Vous allez être redirigé vers la page de paiement sécurisée de notre prestataire <strong>Mollie</strong>. Vos données bancaires ne passent jamais par notre site.</p>
+            <?php if (stripe_actif()): ?>
+                <p>Vous allez être redirigé vers la page de paiement sécurisée de notre prestataire <strong>Stripe</strong>. Vos données bancaires ne passent jamais par notre site.</p>
             <?php else: ?>
                 <p class="paiement__demo" role="note">
                     <strong>Démonstration :</strong> ce paiement est simulé. Aucune donnée de carte n'est demandée et aucun montant n'est débité.

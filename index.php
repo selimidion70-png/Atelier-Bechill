@@ -23,7 +23,7 @@ require 'core/html.php';
 require 'core/query.php';
 require 'core/csrf.php';
 require 'core/mail.php';
-require 'core/mollie.php';
+require 'core/stripe.php';
 
 require 'config/database.php';
 
@@ -60,7 +60,7 @@ if ($estAdmin) {
 $route = route($segments);
 
 // Exécution du controller (tout formulaire POST doit avoir un jeton CSRF valide,
-// sauf le webhook Mollie, appelé par Mollie et non par un formulaire du site)
+// sauf le webhook Stripe, appelé par Stripe et non par un formulaire du site)
 $sansCsrf = !$estAdmin && $route === 'paiement-webhook';
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$sansCsrf && !csrf_check()) {
     http_response_code(403);

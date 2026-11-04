@@ -2,7 +2,7 @@
 // config/app.php
 // Réglages du site. Pour un autre salon ou pour la mise en ligne, c'est ici qu'on change tout.
 //
-// Les valeurs SECRÈTES (clé Mollie, mots de passe…) ne vont PAS ici : mettez-les dans
+// Les valeurs SECRÈTES (clé Stripe, mots de passe…) ne vont PAS ici : mettez-les dans
 // config/app.local.php (même format, ignoré par git). Il remplace les valeurs ci-dessous.
 
 return [
@@ -17,7 +17,7 @@ return [
         'mot_de_passe' => '',
     ],
 
-    // Adresse publique du site, sans « / » à la fin (utilisée dans les emails et pour Mollie)
+    // Adresse publique du site, sans « / » à la fin (utilisée dans les emails et pour Stripe)
     'url_site' => 'http://atelier-bechill.test',
 
     // Coordonnées du salon (pied de page, emails, mentions légales)
@@ -40,9 +40,11 @@ return [
     // Expéditeur des emails envoyés aux clients
     'email_expediteur' => 'BE CHILL <info@bechill.be>',
 
-    // Paiement en ligne avec Mollie (https://www.mollie.com).
-    // Clé vide = paiement SIMULÉ (démonstration). Clé « test_… » = vrai parcours Mollie sans vrai argent.
-    'mollie_cle' => '',
+    // Paiement en ligne avec Stripe (https://stripe.com).
+    // Clé vide = paiement SIMULÉ (démonstration). Clé « sk_test_… » = vrai parcours Stripe sans vrai argent.
+    'stripe_cle' => '',
+    // Secret du webhook (« whsec_… »), donné par Stripe quand on déclare l'adresse /paiement-webhook
+    'stripe_webhook_secret' => '',
 
     // RGPD : durée de conservation des données des clients (en mois), puis suppression automatique
     'rgpd_conservation_reservations' => 24,

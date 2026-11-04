@@ -5,8 +5,10 @@
 // Seules les clés présentes ici remplacent celles de config/app.php.
 
 return [
-    // Clé Mollie (tableau de bord Mollie → Développeurs → Clés API). Commence par « test_ » ou « live_ ».
-    'mollie_cle' => 'test_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+    // Clé secrète Stripe (tableau de bord Stripe → Développeurs → Clés API). Commence par « sk_test_ » ou « sk_live_ ».
+    'stripe_cle' => 'COLLER_ICI_VOTRE_CLE_SK_TEST',
+    // Secret du webhook (Développeurs → Webhooks). Inutile en local : le statut est vérifié au retour du client.
+    'stripe_webhook_secret' => '',
 
     // Exemple pour la mise en ligne :
     // 'environnement' => 'production',

@@ -1,8 +1,9 @@
 <?php
 // app/controllers/paiement.php
 // Paiement d'une réservation qui vient d'être faite.
-//  - Sans clé Mollie : paiement SIMULÉ (démonstration, aucune carte demandée).
-//  - Avec une clé Mollie : le client paie sur la page sécurisée de Mollie puis revient ici (?retour=1).
+//  - Sans clé Stripe : paiement SIMULÉ (démonstration, aucune carte demandée).
+//  - Avec une clé Stripe : le client paie sur la page sécurisée de Stripe puis revient ici
+//    (?retour=1 après paiement, ?annule=1 s'il a abandonné).
 require_once __DIR__ . '/../models/reservation.php';
 
 // Après un choix, on affiche la confirmation une seule fois
@@ -37,17 +38,22 @@ function paiement_terminer(int $id, string $etape): never
 
 $erreur = '';
 
-// Retour depuis la page de paiement Mollie : on demande le vrai statut à Mollie
-if (isset($_GET['retour']) && mollie_actif() && $reservation['mollie_id']) {
+// Le client a quitté la page de paiement Stripe sans payer
+if (isset($_GET['annule'])) {
+    $erreur = "Le paiement a été annulé. Vous pouvez réessayer ou payer sur place.";
+}
+
+// Retour depuis la page de paiement Stripe : on demande le vrai statut à Stripe
+if (isset($_GET['retour']) && stripe_actif() && $reservation['paiement_id']) {
     try {
-        $statut = mollie_statut($reservation['mollie_id']);
+        $statut = stripe_statut($reservation['paiement_id']);
         if ($statut === 'paid') {
             if (reservation_set_payee($pdo, $id)) {
                 reservation_envoyer_email($pdo, $id, 'payee');
             }
             paiement_terminer($id, 'payee');
         }
-        if (in_array($statut, ['open', 'pending', 'authorized'], true)) {
+        if ($statut === 'pending') {
             paiement_terminer($id, 'en_cours');
         }
         $erreur = "Le paiement n'a pas abouti (annulé ou refusé). Vous pouvez réessayer ou payer sur place.";
@@ -62,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         paiement_terminer($id, 'sur_place');
     }
 
-    if (!mollie_actif()) {
+    if (!stripe_actif()) {
         // Paiement simulé
         if (reservation_set_payee($pdo, $id)) {
             reservation_envoyer_email($pdo, $id, 'payee');
@@ -70,16 +76,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         paiement_terminer($id, 'payee');
     }
 
-    // Paiement Mollie : création du paiement puis envoi du client sur la page Mollie
+    // Paiement Stripe : création du paiement puis envoi du client sur la page Stripe
     try {
-        $paiement = mollie_creer_paiement(
+        $paiement = stripe_creer_paiement(
             (float)$reservation['montant'],
             salon('nom') . ' – réservation n°' . $id . ' – ' . ($reservation['soin'] ?? 'soin'),
             config('url_site') . '/paiement?retour=1',
-            mollie_url_webhook(),
+            config('url_site') . '/paiement?annule=1',
             ['reservation_id' => $id]
         );
-        reservation_set_mollie_id($pdo, $id, $paiement['id']);
+        reservation_set_paiement_id($pdo, $id, $paiement['id']);
         redirect($paiement['url']);
     } catch (RuntimeException $e) {
         error_log($e->getMessage());

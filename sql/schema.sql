@@ -118,9 +118,9 @@ CREATE TABLE reservation (
     montant            DECIMAL(6,2) NOT NULL,             -- prix du soin au moment de la réservation
     paiement           ENUM('non_payee', 'payee') NOT NULL DEFAULT 'non_payee',
     date_paiement      DATETIME NULL,
-    mollie_id          VARCHAR(40) NULL,                  -- identifiant du paiement Mollie (tr_…), si paiement en ligne
+    paiement_id        VARCHAR(255) NULL,                 -- identifiant du paiement Stripe (cs_…), si paiement en ligne
     date_envoi         DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    INDEX idx_reservation_mollie (mollie_id),
+    INDEX idx_reservation_paiement (paiement_id),
     CONSTRAINT fk_reservation_item FOREIGN KEY (item_id) REFERENCES item(id) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
