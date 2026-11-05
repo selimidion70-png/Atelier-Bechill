@@ -142,9 +142,11 @@ Laragon crée automatiquement l'adresse `nom-du-dossier.test`.
 http://atelier-bechill.test/admin
 ```
 
-Identifiants par défaut :
+Identifiants par défaut (**compte de démonstration**, uniquement pour tester en local) :
 - **Email** : `admin@bechill.be`
 - **Mot de passe** : `admin123`
+
+> ⚠️ Ce compte est créé par `sql/schema.sql` pour la démo. Le mot de passe est stocké chiffré en base (`password_hash`), et il doit être changé dès la mise en ligne (voir [Mise en ligne](#-mise-en-ligne-pour-un-vrai-client)).
 
 ### 7. Voir les emails envoyés
 
