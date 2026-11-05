@@ -2,6 +2,8 @@
 
 Site web dynamique pour un salon de massage fictif, développé dans le cadre du projet d'atelier à l'EFP Bruxelles.
 
+![Aperçu de la page d'accueil de BE CHILL](docs/apercu.webp)
+
 ---
 
 ## 📌 Description
